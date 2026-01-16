@@ -1,0 +1,207 @@
+/*initial стили*/
+#js__one__click{
+    margin-top: 0;
+    position: relative;
+}
+/*При увеличении высоты анимация по скроллу станет плавнее, при уменьшении - быстрее*/
+#js__one__click .one__screen{ 
+    height: 800vh;
+}
+/*Блок с анимируемым заголовком всегда сверху страницы и высотой в экран, пока идет скролл по его родителю с большей высотой*/
+#js__one__click .one__screen .one__screen__text{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+#js__one__click .one__screen .one__screen__text h2{
+    color: rgba(228, 37, 45, 1);
+    font-size: 120px;
+    font-weight: 500;
+    line-height: 110%;
+    cursor: pointer;
+    transform: translateY(100%);
+    opacity: 0;
+    transform-origin: 50% 57%;
+}
+/*Если изначально дрежать в display: none - багуют анимации*/
+#js__one__click .two__screen {
+    padding: 80px 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(231.26deg, rgba(242, 85, 85, 1),rgba(228, 34, 43, 1) 50%,rgba(200, 0, 22, 1) 100%);
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#js__one__click .two__screen h2 {
+    color: rgba(233, 234, 243, 1);
+    font-size: 120px;
+    font-weight: 500;
+    line-height: 110%;
+    margin-bottom: 90px;
+    opacity: 0;
+}
+#js__one__click .two__screen ul {
+    margin-bottom: 130px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 100px;
+    padding: 0 0 0 32px;
+}
+#js__one__click .two__screen ul li {
+    color: rgba(233, 234, 243, 1);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 140%;
+    text-align: left;
+    padding: 40px 20px;
+    flex: 0 1 calc(50% - 50px);
+    position: relative;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+#js__one__click .two__screen .animate_1 {
+    transition: opacity 1s ease-in-out;
+    transition-delay: 1s;
+}
+#js__one__click .two__screen ul li.animate_2 {
+    transition-delay: 1.5s;
+}
+#js__one__click .two__screen ul li.animate_3 {
+    transition-delay: 1.9s;
+}
+#js__one__click .two__screen ul li.animate_4 {
+    transition-delay: 2.3s;
+}
+#js__one__click .two__screen ul li.animate_5 {
+    transition-delay: 2.7s;
+}
+#js__one__click .two__screen ul li.animate_6 {
+    transition-delay: 3.1s;
+}
+#js__one__click .two__screen ul li:after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -32px;
+    width: calc(100% + 32px);
+    height: 2px;
+    background:rgba(206, 206, 221, .25);
+}
+#js__one__click .two__screen span{
+    position: relative;
+    color:  rgba(233, 234, 243, 1);
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 140%;
+    text-align: left;
+    opacity: 0;
+}
+#js__one__click .two__screen span:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    background: #fff;
+    height: 2px;
+}
+
+/*промежуточные стили*/
+/*фиксируем второй экран*/
+#js__one__click .two__screen.animate-show {
+    opacity: 1;
+    position: fixed;
+    top: 0;
+}
+#js__one__click .two__screen.animate-show h2 {
+    opacity: 1;
+}
+#js__one__click .two__screen.animate-show ul li {
+    opacity: 1;
+}
+#js__one__click .two__screen.animate-show span{
+    opacity: 1;
+}
+
+/*финальные стили*/
+/*страница пересчиталась, второй экран возвращается в поток*/
+#js__one__click .two__screen.show {
+    opacity: 1;
+    position: unset;
+}
+#js__one__click .two__screen.show h2 {
+    opacity: 1;
+}
+#js__one__click .two__screen.show ul li {
+    opacity: 1;
+}
+#js__one__click .one__screen.hide { 
+    display: none;
+}
+#js__one__click .two__screen.show span{
+    opacity: 1;
+}
+
+/*анимация для мобильных*/
+@keyframes mobileAnimate {
+  /* 0% — полностью скрыт, снизу */
+  0% {
+    opacity: 0;
+    transform: translateY(100%) scale(1);
+  }
+
+  /* 15% — появился и встал на место */
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* 25% — фиксируем старт зума */
+  25% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* 100% — сильный зум */
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(400);
+  }
+}
+
+/*медиа*/
+@media (max-width: 1500px) {
+    #js__one__click .two__screen h2{font-size: 96px}
+    #js__one__click .one__screen .one__screen__text h2{font-size: 98px;}
+    #js__one__click .one__screen{min-height: 100vh}
+}
+@media (max-width: 1380px) {
+    #js__one__click .two__screen h2{font-size: 68px;margin-bottom: 40px;}
+    #js__one__click .two__screen ul li{font-size: 24px;}
+    #js__one__click .two__screen ul{margin-bottom: 40px;}
+}
+@media (max-width: 1200px) {
+    #js__one__click .one__screen .one__screen__text h2{font-size: 68px;}
+    #js__one__click .one__screen{min-height: 100vh;}
+}
+@media (max-width: 768px) {
+    #js__one__click .one__screen {height: 200vh;}
+    #js__one__click .one__screen .one__screen__text h2{transform-origin: 47% 28.5%;}
+    #js__one__click.mobile-animate .one__screen .one__screen__text h2{animation: mobileAnimate 3s ease forwards;will-change: transform, opacity;}
+}
+@media (max-width: 620px) {
+    #js__one__click .two__screen h2{font-size: 46px;}
+    #js__one__click .two__screen ul li{font-size: 20px;flex: 1 1 100%}
+    #js__one__click .two__screen span{font-size: 24px;}
+    #js__one__click .one__screen .one__screen__text h2{font-size: 46px;text-align: center;}
+}
