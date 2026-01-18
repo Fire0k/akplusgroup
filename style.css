@@ -799,6 +799,16 @@ body a.btn-base:hover {
     margin-bottom: 90px;
     opacity: 0;
 }
+#js__one__click .two__screen p {
+    color: rgba(233, 234, 243, 1);
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 140%;
+    text-align: left;
+    padding: 40px 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
 #js__one__click .two__screen ul {
     margin-bottom: 130px;
     display: flex;
@@ -835,6 +845,9 @@ body a.btn-base:hover {
     transition-delay: 2.7s;
 }
 #js__one__click .two__screen ul li.animate_6 {
+    transition-delay: 3.1s;
+}
+#js__one__click .two__screen p.animate_6 {
     transition-delay: 3.1s;
 }
 #js__one__click .two__screen ul li:after{
@@ -875,6 +888,9 @@ body a.btn-base:hover {
 #js__one__click .two__screen.animate-show h2 {
     opacity: 1;
 }
+#js__one__click .two__screen.animate-show p {
+    opacity: 1;
+}
 #js__one__click .two__screen.animate-show ul li {
     opacity: 1;
 }
@@ -889,6 +905,9 @@ body a.btn-base:hover {
     position: unset;
 }
 #js__one__click .two__screen.show h2 {
+    opacity: 1;
+}
+#js__one__click .two__screen.show p {
     opacity: 1;
 }
 #js__one__click .two__screen.show ul li {
