@@ -1,648 +1,918 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="description" content="АК+" />
-<link href="./style.css" type="text/css"  data-template-style="true" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js"></script>
-<script  src="./script1.js"></script>
-<script  src="./script2.js"></script>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="АК+" />
+    <link
+      href="./style.css"
+      type="text/css"
+      data-template-style="true"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js"></script>
+    <script src="./script1.js"></script>
+    <script src="./script2.js"></script>
 
-		<title>АК+</title>
-		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> 	
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АК+</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body id="body">
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <div id="panel"></div>
 
-			</head>
-	<body id="body">
-        <div id="smooth-wrapper">
-		<div id="smooth-content">
-		<div id="panel">
-					</div>
+        <div class="overlay" id="overlay" aria-hidden="true">
+          <div class="backdrop" data-close></div>
 
-<div class="overlay" id="overlay" aria-hidden="true">
-    <div class="backdrop" data-close></div>
+          <div class="panel" role="dialog" aria-modal="true" aria-label="Меню">
+            <div class="container">
+              <div class="topbar">
+                <div class="brand">
+                  <a href="/" class="logo">
+                    <img src="/local/templates/ak_plus/img/AK+.svg" alt="" />
+                  </a>
+                </div>
 
-    <div class="panel" role="dialog" aria-modal="true" aria-label="Меню">
-    <div class="container">
-	      <div class="topbar">
-	        <div class="brand">
-	          
-	        <a href="/" class="logo">
-                <img src="/local/templates/ak_plus/img/AK+.svg" alt="">
-            </a>
-	        </div>
+                <div class="actions">
+                  <a href="/contacts/" class="btn-base">Контакты</a>
+                  <button
+                    class="close"
+                    id="close"
+                    aria-label="Закрыть"
+                  ></button>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col">
+                  <h3 class="active">Направления</h3>
 
-	        <div class="actions">
-	          <a href="/contacts/" class="btn-base">Контакты</a>
-	          <button class="close" id="close" aria-label="Закрыть"></button>
-	        </div>
-	      </div>
-	      <div class="grid">
-	        <div class="col">
-	          	<h3 class="active">Направления</h3>
-	          	
+                  <div class="list__menu">
+                    <a href="#">Деловой туризм</a>
+                    <a href="#">Организация мероприятий</a>
+                    <a href="#">Субагентский бизнес</a>
+                    <a href="#">Путешествия</a>
+                    <a href="#">IT-разработка</a>
+                  </div>
+                </div>
 
-	<div class="list__menu">
-						<a href="#">Деловой туризм</a>
-						<a href="#">Организация мероприятий</a>
-						<a href="#">Субагентский бизнес</a>
-						<a href="#">Путешествия</a>
-						<a href="#">IT-разработка</a>
-			</div>
+                <div class="col">
+                  <h3>Группа компаний</h3>
 
-	        </div>
+                  <div class="list__menu">
+                    <a href="#">О компании</a>
+                    <a href="history.html">История</a>
+                    <a href="#">Контакты</a>
+                    <a href="#">Инвесторам</a>
+                    <a href="#">Устойчивое развитие</a>
+                  </div>
+                </div>
 
-	        <div class="col">
-	          	<h3>Группа компаний</h3>
-	          	
+                <div class="col">
+                  <h3>Карьера</h3>
 
-	<div class="list__menu">
-						<a href="#">О компании</a>
-						<a href="#">История</a>
-						<a href="#">Контакты</a>
-						<a href="#">Инвесторам</a>
-						<a href="#">Устойчивое развитие</a>
-			</div>
+                  <div class="list__menu">
+                    <a href="#">Программы для сотрудников</a>
+                  </div>
+                </div>
 
-	        </div>
+                <div class="col">
+                  <h3>Медиацентр</h3>
 
-	        <div class="col">
-	          	<h3>Карьера</h3>
-	          	
+                  <div class="list__menu">
+                    <a href="#">Новости</a>
+                    <a href="#">СМИ о нас</a>
+                    <a href="#">Блог</a>
+                  </div>
+                </div>
 
-	<div class="list__menu">
-						<a href="#">Программы для сотрудников</a>
-			</div>
+                <div class="col">
+                  <h3>Представительства</h3>
 
-	        </div>
-
-	        <div class="col">
-	          	<h3>Медиацентр</h3>
-	          	
-
-	<div class="list__menu">
-						<a href="#">Новости</a>
-						<a href="#">СМИ о нас</a>
-						<a href="#">Блог</a>
-			</div>
-
-	        </div>
-
-	        <div class="col">
-	        	<h3>Представительства</h3>
-	          	
-
-	<div class="list__menu">
-						<a href="#">Казахстан endsclub.kz</a>
-						<a href="#">Турция bentour.com</a>
-			</div>
-
-	        </div>
-
-	      </div>
-	      <div class="bottom-left">
-	        	<a href="#">
-                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.000000" height="48.000000" fill="none" customFrame="#000000">
-                        <g id="Group 4741">
-                            <circle id="Ellipse 2" cx="24" cy="24" r="24" fill="rgb(228,37,45)" />
-                            <path id="Vector" d="M36.1515 14.0949C35.88 13.8874 35.5495 13.7496 35.1959 13.6965C34.8423 13.6433 34.4792 13.6767 34.1456 13.7932L11.4197 21.6965C11.0236 21.8342 10.6885 22.0818 10.4646 22.4022C10.2407 22.7226 10.14 23.0985 10.1776 23.4739C10.2152 23.8491 10.3891 24.2034 10.6732 24.484C10.9573 24.7644 11.3364 24.9561 11.7537 25.0299L17.5262 26.0519L17.5262 32.4344C17.5259 32.7795 17.6413 33.1169 17.8577 33.4039C18.0741 33.6909 18.3819 33.9145 18.742 34.0466C19.1022 34.1787 19.4985 34.2131 19.8808 34.1457C20.2631 34.0782 20.6141 33.9119 20.8896 33.6677L24.0841 30.8398L28.9327 34.6168C29.2897 34.8975 29.7505 35.0527 30.2278 35.0532C30.4353 35.0529 30.6415 35.024 30.8389 34.9674C31.1645 34.876 31.4574 34.7105 31.6883 34.4876C31.9191 34.2647 32.0799 33.9922 32.1546 33.6971L36.7863 15.8062C36.8669 15.4968 36.8504 15.1738 36.7385 14.8722C36.6266 14.5705 36.4235 14.3017 36.1515 14.0949ZM19.8808 29.0696L20.0887 25.4042L34.6983 16.064L19.8808 29.0696Z" fill="rgb(255,255,255)" fill-rule="nonzero" />
-                        </g>
-                    </svg>
-
+                  <div class="list__menu">
+                    <a href="#">Казахстан endsclub.kz</a>
+                    <a href="#">Турция bentour.com</a>
+                  </div>
+                </div>
+              </div>
+              <div class="bottom-left">
+                <a href="#">
+                  <svg
+                    viewBox="0 0 48 48"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="48.000000"
+                    height="48.000000"
+                    fill="none"
+                    customFrame="#000000"
+                  >
+                    <g id="Group 4741">
+                      <circle
+                        id="Ellipse 2"
+                        cx="24"
+                        cy="24"
+                        r="24"
+                        fill="rgb(228,37,45)"
+                      />
+                      <path
+                        id="Vector"
+                        d="M36.1515 14.0949C35.88 13.8874 35.5495 13.7496 35.1959 13.6965C34.8423 13.6433 34.4792 13.6767 34.1456 13.7932L11.4197 21.6965C11.0236 21.8342 10.6885 22.0818 10.4646 22.4022C10.2407 22.7226 10.14 23.0985 10.1776 23.4739C10.2152 23.8491 10.3891 24.2034 10.6732 24.484C10.9573 24.7644 11.3364 24.9561 11.7537 25.0299L17.5262 26.0519L17.5262 32.4344C17.5259 32.7795 17.6413 33.1169 17.8577 33.4039C18.0741 33.6909 18.3819 33.9145 18.742 34.0466C19.1022 34.1787 19.4985 34.2131 19.8808 34.1457C20.2631 34.0782 20.6141 33.9119 20.8896 33.6677L24.0841 30.8398L28.9327 34.6168C29.2897 34.8975 29.7505 35.0527 30.2278 35.0532C30.4353 35.0529 30.6415 35.024 30.8389 34.9674C31.1645 34.876 31.4574 34.7105 31.6883 34.4876C31.9191 34.2647 32.0799 33.9922 32.1546 33.6971L36.7863 15.8062C36.8669 15.4968 36.8504 15.1738 36.7385 14.8722C36.6266 14.5705 36.4235 14.3017 36.1515 14.0949ZM19.8808 29.0696L20.0887 25.4042L34.6983 16.064L19.8808 29.0696Z"
+                        fill="rgb(255,255,255)"
+                        fill-rule="nonzero"
+                      />
+                    </g>
+                  </svg>
                 </a>
 
-	        <div>
-	          Политика обработки персональных данных<br/>
-	          2026 © АК Плюс
-	        </div>
-	      </div>
-  	</div>
-    </div>
-</div>
+                <div>
+                  Политика обработки персональных данных<br />
+                  2026 © АК Плюс
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<section class="hero">
-    <div class="hero__inner container">
-        <header class="hero__header">
-            <a href="/" class="logo">
-                <img src="img/logo.svg" alt="">
-            </a>
+        <section class="hero">
+          <div class="hero__inner container">
+            <header class="hero__header">
+              <a href="/" class="logo">
+                <img src="img/logo.svg" alt="" />
+              </a>
 
-            <nav class="nav main">
+              <nav class="nav main">
                 <a href="#">Направления</a>
                 <a href="#">Продукты</a>
                 <a href="#">Медициентр</a>
                 <a href="#">Компания</a>
                 <a href="#">Карьера</a>
-            </nav>
+              </nav>
 
-            <div class="hero__header-right">
+              <div class="hero__header-right">
                 <a href="/contacts/" class="btn-base">Контакты</a>
-                <button class="burger" class="open-btn" id="open" aria-label="Открыть меню">
-                    <span></span>
-                    <span></span>
+                <button
+                  class="burger"
+                  class="open-btn"
+                  id="open"
+                  aria-label="Открыть меню"
+                >
+                  <span></span>
+                  <span></span>
                 </button>
+              </div>
+            </header>
+            <div class="hero__content">
+              <h1 class="hero__title">
+                <span id="blurText">Единый&ensp;код</span>
+                <span class="hero__title-accent" id="blurText_2">качества</span>
+              </h1>
             </div>
-        </header>
-        	        <div class="hero__content">
-	            <h1 class="hero__title">
-	                <span id="blurText">Единый&ensp;код</span>
-	                <span class="hero__title-accent" id="blurText_2">качества</span>
-	            </h1>
-	        </div>
-            </div>
-</section>
-						
-<section class="description">
-    <div class="container">
-        <p>AK Плюс — российская международная TravelTech-группа, ведущий разработчик и поставщик IT-решений и сервисов
-            для организации путешествий</p>
-    </div>
-</section>
+          </div>
+        </section>
 
-<section class="directions" id="directions">
-    <div class="container">
-        <div class="directions__grid">
-            <article class="dir-card dir-card--wide" data-bg="img/cards/1.png" data-bg_sec="img/cards/1_back.png">
-                <h3 class="dir-card__title">Командировки<br>для крупного бизнеса</h3>
-            </article>
+        <section class="description">
+          <div class="container">
+            <p>
+              AK Плюс — российская международная TravelTech-группа, ведущий
+              разработчик и поставщик IT-решений и сервисов для организации
+              путешествий
+            </p>
+          </div>
+        </section>
 
-            <article class="dir-card" data-bg="img/cards/2.png" data-bg_sec="img/cards/2_back.png">
+        <section class="directions" id="directions">
+          <div class="container">
+            <div class="directions__grid">
+              <article
+                class="dir-card dir-card--wide"
+                data-bg="img/cards/1.png"
+                data-bg_sec="img/cards/1_back.png"
+              >
+                <h3 class="dir-card__title">
+                  Командировки<br />для крупного бизнеса
+                </h3>
+              </article>
+
+              <article
+                class="dir-card"
+                data-bg="img/cards/2.png"
+                data-bg_sec="img/cards/2_back.png"
+              >
                 <h3 class="dir-card__title">IT разработка</h3>
-            </article>
+              </article>
 
-            <article class="dir-card dir-card--square" data-bg="img/cards/3.png" data-bg_sec="img/cards/3_back.png">
-                <h3 class="dir-card__title">Организация<br>мероприятий</h3>
-            </article>
+              <article
+                class="dir-card dir-card--square"
+                data-bg="img/cards/3.png"
+                data-bg_sec="img/cards/3_back.png"
+              >
+                <h3 class="dir-card__title">Организация<br />мероприятий</h3>
+              </article>
 
-            <article class="dir-card dir-card--square" data-bg="img/cards/4.png" data-bg_sec="img/cards/4_back.png">
+              <article
+                class="dir-card dir-card--square"
+                data-bg="img/cards/4.png"
+                data-bg_sec="img/cards/4_back.png"
+              >
                 <h3 class="dir-card__title">Путешествия</h3>
-            </article>
+              </article>
 
-            <article class="dir-card dir-card--wide" data-bg="img/cards/5.png" data-bg_sec="img/cards/5_back.png">
+              <article
+                class="dir-card dir-card--wide"
+                data-bg="img/cards/5.png"
+                data-bg_sec="img/cards/5_back.png"
+              >
                 <h3 class="dir-card__title">Командировки SMB</h3>
-            </article>
+              </article>
 
-            <article class="dir-card" data-bg="img/cards/6.png" data-bg_sec="img/cards/6_back.png">
+              <article
+                class="dir-card"
+                data-bg="img/cards/6.png"
+                data-bg_sec="img/cards/6_back.png"
+              >
                 <h3 class="dir-card__title">Субагентский бизнес</h3>
-            </article>
-        </div>
+              </article>
+            </div>
 
-        <div class="directions__slider swiper">
-            <div class="directions_swiper swiper-wrapper">
-                <article class="swiper-slide" data-mobile="img/cards/back_media/1_mob.png" data-tablet="img/cards/back_media/1.png">
-                    <h3 class="dir-card__title">Командировки<br>для крупного бизнеса</h3>
+            <div class="directions__slider swiper">
+              <div class="directions_swiper swiper-wrapper">
+                <article
+                  class="swiper-slide"
+                  data-mobile="img/cards/back_media/1_mob.png"
+                  data-tablet="img/cards/back_media/1.png"
+                >
+                  <h3 class="dir-card__title">
+                    Командировки<br />для крупного бизнеса
+                  </h3>
                 </article>
 
-                <article class="swiper-slide" data-mobile="img/cards/back_media/2_mob.png" data-tablet="img/cards/back_media/2.png">
-                    <h3 class="dir-card__title">IT разработка</h3>
+                <article
+                  class="swiper-slide"
+                  data-mobile="img/cards/back_media/2_mob.png"
+                  data-tablet="img/cards/back_media/2.png"
+                >
+                  <h3 class="dir-card__title">IT разработка</h3>
                 </article>
 
-                <article class="swiper-slide" data-mobile="img/cards/back_media/3_mob.png" data-tablet="img/cards/back_media/3.png">
-                    <h3 class="dir-card__title">Организация<br>мероприятий</h3>
+                <article
+                  class="swiper-slide"
+                  data-mobile="img/cards/back_media/3_mob.png"
+                  data-tablet="img/cards/back_media/3.png"
+                >
+                  <h3 class="dir-card__title">Организация<br />мероприятий</h3>
                 </article>
 
-                <article class="swiper-slide" data-mobile="img/cards/back_media/4_mob.png" data-tablet="img/cards/back_media/4.png">
-                    <h3 class="dir-card__title">Путешествия</h3>
+                <article
+                  class="swiper-slide"
+                  data-mobile="img/cards/back_media/4_mob.png"
+                  data-tablet="img/cards/back_media/4.png"
+                >
+                  <h3 class="dir-card__title">Путешествия</h3>
                 </article>
 
-                <article class="swiper-slide" data-mobile="img/cards/back_media/5_mob.png" data-tablet="img/cards/back_media/5.png">
-                    <h3 class="dir-card__title">Командировки SMB</h3>
+                <article
+                  class="swiper-slide"
+                  data-mobile="img/cards/back_media/5_mob.png"
+                  data-tablet="img/cards/back_media/5.png"
+                >
+                  <h3 class="dir-card__title">Командировки SMB</h3>
                 </article>
 
-                <article class="swiper-slide" data-mobile="img/cards/back_media/6_mob.png" data-tablet="img/cards/back_media/6.png">
-                    <h3 class="dir-card__title">Субагентский бизнес</h3>
+                <article
+                  class="swiper-slide"
+                  data-mobile="img/cards/back_media/6_mob.png"
+                  data-tablet="img/cards/back_media/6.png"
+                >
+                  <h3 class="dir-card__title">Субагентский бизнес</h3>
                 </article>
+              </div>
+              <div class="bottom_slider">
+                <div class="container">
+                  <div class="pagination"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="line__block">
+          <div class="container">
+            <div class="back__meeting">
+              <div>Назначить встречу</div>
+              <a href="#" data-hystmodal="#callback" class="btn-base"
+                >Назначить</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="figure__block">
+          <div class="container">
+            <div class="figure">
+              <h2>Цифры и факты</h2>
+              <div class="figure__flex">
+                <div class="figure__flex__item">
+                  <div class="figure__flex__item__top">
+                    <span class="out-num" data-max="30" data-step="1">0</span>+
+                  </div>
+                  <div class="figure__flex__item__bottom">лет на рынке</div>
+                </div>
+                <div class="figure__flex__item">
+                  <div class="figure__flex__item__top">
+                    <span class="out-num" data-max="63" data-step="1">0</span>+
+                    <span class="lower__text">млрд</span>
+                  </div>
+                  <div class="figure__flex__item__bottom">
+                    Оборот группы компаний
+                  </div>
+                </div>
+                <div class="figure__flex__item">
+                  <div class="figure__flex__item__top">BBB-</div>
+                  <div class="figure__flex__item__bottom">
+                    Кредитный рейтинг
+                  </div>
+                </div>
+                <div class="figure__flex__item">
+                  <div class="figure__flex__item__top gray">
+                    <span class="out-num" data-max="2.5" data-step="0.1">0</span
+                    ><span class="lower__text"> млн+</span>
+                  </div>
+                  <div class="figure__flex__item__bottom">Путешественников</div>
+                </div>
+                <div class="figure__flex__item">
+                  <div class="figure__flex__item__top gray">
+                    <span class="out-num" data-max="2800" data-step="50">0</span
+                    >+
+                  </div>
+                  <div class="figure__flex__item__bottom">Клиентов</div>
+                </div>
+                <div class="figure__flex__item">
+                  <div class="figure__flex__item__top gray">
+                    <span class="out-num" data-max="750" data-step="10">0</span
+                    >+
+                  </div>
+                  <div class="figure__flex__item__bottom">Сотрудников</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="search__request">
+          <div class="container back__red">
+            <div class="search__request__flex">
+              <div class="search__request__block">
+                <span class="js-counter"></span>
+                <span
+                  >Поисковые запросы* <br /><span class="small__span"
+                    >(с рекомендациями ИИ)</span
+                  ></span
+                >
+              </div>
+              <div class="search__request__after">
+                <span class="line"></span><span>*С начала года</span>
+              </div>
+              <div class="search__request__block">
+                <span class="js-counter-2"></span>
+                <span
+                  >Тревел-услуги* <br /><span class="small__span"
+                    >(авиа, отели, жд, трансфер)</span
+                  ></span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="aik__block">
+          <div class="container">
+            <div class="aik__block__text">
+              Чтобы создать принципиально новый TravelTech-ландшафт и обеспечить
+              нативный, быстрый и качественный сервис, мы развиваем собственные
+              технологии на базе искусственного интеллекта, которые являются
+              стратегическим фундаментом всех наших продуктов и сервисов.<br />
+              Благодаря этому мы расширяем возможности путешествий — в один клик
+            </div>
+            <div class="aik__block__text two">Совет директоров АК Плюс</div>
+          </div>
+        </section>
+        <section id="js__one__click">
+          <div class="one__screen">
+            <div class="container one__screen__text initial">
+              <h2>Путешествие в один клик</h2>
+            </div>
+          </div>
+          <div class="two__screen">
+            <div class="container">
+              <h2 class="click__anim animate_1">Путешествие в один клик</h2>
+              <ul>
+                <li class="click__anim animate_2">
+                  Делаем тревел-сервис нативным, быстрым и качественным — в один
+                  клик.
+                </li>
+                <li class="click__anim animate_3">
+                  Выстраиваем единую систему качества в каждом решении на всех
+                  этапах работы
+                </li>
+                <li class="click__anim animate_4">
+                  Формируем новую модель потребления, создавая простые и удобные
+                  решения во всех нишах тревел-услуг.
+                </li>
+                <li class="click__anim animate_5">
+                  Превращаем офлайн и онлайн, объединяя в цифровую и сервисную
+                  экспертизы
+                </li>
+                <li class="click__anim animate_6">
+                  Опираемся на big data на всех этапах работы, обеспечивая
+                  безопасность данных за счёт развития собственной лаборатории
+                  искусственного интеллекта
+                </li>
+              </ul>
+              <p class="click__anim animate_6">
+                Делаем тревел-сервис нативным, быстрым и качественным — в один
+                клик
+              </p>
+            </div>
+          </div>
+        </section>
+        <section class="slider_one">
+          <div class="block__slider__one swiper">
+            <div class="cases swiper-wrapper">
+              <div
+                class="case swiper-slide"
+                style="background-image: url(&quot;img/slider_1/1_.png&quot;)"
+              >
+                <div class="flex__slide container">
+                  <div class="flex__slide__text">
+                    <div class="flex__slide__text__name">
+                      Ценности и принципы
+                    </div>
+                    <div class="flex__slide__text__desc">
+                      <span>Амбициозность</span>
+                      <p>
+                        Мы не останавливаемся на достигнутом, потому что
+                        убеждены: только смелые и прорывные цели ведут к
+                        качественному развитию.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="slider__img"></div>
+                </div>
+              </div>
+              <div
+                class="case swiper-slide"
+                style="background-image: url(&quot;img/slider_1/2.png&quot;)"
+              >
+                <div class="flex__slide container">
+                  <div class="flex__slide__text">
+                    <div class="flex__slide__text__name">
+                      Ценности и принципы
+                    </div>
+                    <div class="flex__slide__text__desc">
+                      <span>Лидерство</span>
+                      <p>
+                        Мы уверены, что лидер строит процессы в парадигме
+                        преемственности. Аккумулируя многолетний опыт, мы
+                        закрепляем лучшие практики в технологиях, выстраивая
+                        базис для будущих достижений.
+                      </p>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div
+                class="case swiper-slide"
+                style="background-image: url(&quot;img/slider_1/3.png&quot;)"
+              >
+                <div class="flex__slide container">
+                  <div class="flex__slide__text">
+                    <div class="flex__slide__text__name">
+                      Ценности и принципы
+                    </div>
+                    <div class="flex__slide__text__desc">
+                      <span>Командная работа</span>
+                      <p>
+                        Мы формируем команды так, чтобы за счет обмена
+                        экспертизой и реализации потенциала каждого сотрудника
+                        достигать результатов, превышающих сумму индивидуальных
+                        достижений.
+                      </p>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div
+                class="case swiper-slide"
+                style="background-image: url(&quot;img/slider_1/4.png&quot;)"
+              >
+                <div class="flex__slide container">
+                  <div class="flex__slide__text">
+                    <div class="flex__slide__text__name">
+                      Ценности и принципы
+                    </div>
+                    <div class="flex__slide__text__desc">
+                      <span>Клиентоориентированность</span>
+                      <p>
+                        Мы формируем команды так, чтобы за счет обмена
+                        экспертизой и реализации потенциала каждого сотрудника
+                        достигать результатов, превышающих сумму индивидуальных
+                        достижений.
+                      </p>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div
+                class="case swiper-slide"
+                style="background-image: url(&quot;img/slider_1/5.png&quot;)"
+              >
+                <div class="flex__slide container">
+                  <div class="flex__slide__text">
+                    <div class="flex__slide__text__name">
+                      Ценности и принципы
+                    </div>
+                    <div class="flex__slide__text__desc">
+                      <span>Комплаенс</span>
+                      <p>
+                        Мы бескомпромиссно придерживаемся принципов прозрачности
+                        в ведении бизнеса. Репутация — наш основной приоритет.
+                      </p>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div
+                class="case swiper-slide"
+                style="background-image: url(&quot;img/slider_1/6.png&quot;)"
+              >
+                <div class="flex__slide container">
+                  <div class="flex__slide__text">
+                    <div class="flex__slide__text__name">
+                      Ценности и принципы
+                    </div>
+                    <div class="flex__slide__text__desc">
+                      <span>Ответственные путешествия</span>
+                      <p>
+                        Мы строим бизнес на принципах устойчивого развития,
+                        чтобы обеспечить стратегическое преимущество в настоящем
+                        и сохранить будущее для следующих поколений.
+                      </p>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
             </div>
             <div class="bottom_slider">
-                <div class="container">
-                    <div class="pagination"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="line__block">
-    <div class="container">
-        <div class="back__meeting">
-            <div>Назначить встречу</div>
-            <a href="#" data-hystmodal="#callback" class="btn-base">Назначить</a>
-        </div>
-    </div>
-</section>
-
-<section class="figure__block">
-    <div class="container">
-        <div class="figure">
-            <h2>Цифры и факты</h2>
-            <div class="figure__flex">
-                <div class="figure__flex__item">
-                    <div class="figure__flex__item__top"><span class="out-num" data-max="30" data-step="1">0</span>+</div>
-                    <div class="figure__flex__item__bottom">лет на рынке</div>
-                </div>
-                <div class="figure__flex__item">
-                    <div class="figure__flex__item__top"><span class="out-num" data-max="63" data-step="1">0</span>+ <span class="lower__text">млрд</span></div>
-                    <div class="figure__flex__item__bottom">Оборот группы компаний</div>
-                </div>
-                <div class="figure__flex__item">
-                    <div class="figure__flex__item__top">BBB-</div>
-                    <div class="figure__flex__item__bottom">Кредитный рейтинг</div>
-                </div>
-                <div class="figure__flex__item">
-                    <div class="figure__flex__item__top gray"><span class="out-num" data-max="2.5" data-step="0.1">0</span><span class="lower__text"> млн+</span></div>
-                    <div class="figure__flex__item__bottom">Путешественников</div>
-                </div>
-                <div class="figure__flex__item">
-                    <div class="figure__flex__item__top gray"><span class="out-num" data-max="2800" data-step="50">0</span>+</div>
-                    <div class="figure__flex__item__bottom">Клиентов</div>
-                </div>
-                <div class="figure__flex__item">
-                    <div class="figure__flex__item__top gray"><span class="out-num" data-max="750" data-step="10" >0</span>+</div>
-                    <div class="figure__flex__item__bottom">Сотрудников</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="search__request">
-    <div class="container back__red">
-        <div class="search__request__flex">
-            <div class="search__request__block">
-                <span class="js-counter"></span>
-                <span>Поисковые запросы* <br><span class="small__span">(с рекомендациями ИИ)</span></span>
-            </div>
-            <div class="search__request__after"><span class="line"></span><span>*С начала года</span></div>
-            <div class="search__request__block">
-                <span class="js-counter-2"></span>
-                <span>Тревел-услуги* <br><span class="small__span">(авиа, отели, жд, трансфер)</span></span>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="aik__block">
-    <div class="container">
-        <div class="aik__block__text">
-            Чтобы создать принципиально новый TravelTech-ландшафт и обеспечить нативный, быстрый и качественный сервис, мы развиваем собственные технологии на базе искусственного интеллекта, которые являются стратегическим фундаментом всех наших продуктов и сервисов.<br> Благодаря этому мы расширяем возможности путешествий — в один клик
-        </div>
-        <div class="aik__block__text two">Совет директоров АК Плюс</div>
-    </div>
-</section>
-<section id="js__one__click">
-        <div class="one__screen">
-            <div class="container one__screen__text initial">
-                <h2>Путешествие в один клик</h2>
-            </div>
-        </div>
-        <div class="two__screen">
-            <div class="container">
-                <h2 class="click__anim animate_1">Путешествие в один клик</h2>
-                <ul>
-                    <li class="click__anim animate_2">Делаем тревел-сервис нативным, быстрым и качественным — в один клик.</li>
-                    <li class="click__anim animate_3">Выстраиваем единую систему качества в каждом решении на всех этапах работы</li>
-                    <li class="click__anim animate_4">Формируем новую модель потребления, создавая простые и удобные решения во всех нишах тревел-услуг.</li>
-                    <li class="click__anim animate_5">Превращаем офлайн и онлайн, объединяя в цифровую и сервисную экспертизы</li>
-                    <li class="click__anim animate_6">Опираемся на big data на всех этапах работы, обеспечивая безопасность данных за счёт развития собственной лаборатории искусственного интеллекта</li>
-                </ul>
-                <p class="click__anim animate_6">Делаем тревел-сервис нативным, быстрым и качественным — в один клик</p>
-            </div>
-        </div>
-</section>
-<section class="slider_one">
-    <div class="block__slider__one swiper">
-        <div class="cases swiper-wrapper">
-            <div class="case swiper-slide" style="background-image:url('img/slider_1/1_.png');">
-                <div class="flex__slide container">
-                    <div class="flex__slide__text">
-                        <div class="flex__slide__text__name">Ценности и принципы</div>
-                        <div class="flex__slide__text__desc">
-                            <span>Амбициозность</span>
-                            <p>Мы не останавливаемся на достигнутом, потому что убеждены: только смелые и прорывные цели ведут к качественному развитию.</p>
-                        </div>
-                    </div>
-                    <div class="slider__img"></div>
-                </div>
-            </div>
-            <div class="case swiper-slide" style="background-image:url('img/slider_1/2.png');">
-                <div class="flex__slide container">
-                    <div class="flex__slide__text">
-                        <div class="flex__slide__text__name">Ценности и принципы</div>
-                        <div class="flex__slide__text__desc">
-                            <span>Лидерство</span>
-                            <p>Мы уверены, что лидер строит процессы в парадигме преемственности. Аккумулируя многолетний опыт, мы закрепляем лучшие практики в технологиях, выстраивая базис для будущих достижений.</p>
-                        </div>
-                    </div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="case swiper-slide" style="background-image:url('img/slider_1/3.png');">
-                <div class="flex__slide container">
-                    <div class="flex__slide__text">
-                        <div class="flex__slide__text__name">Ценности и принципы</div>
-                        <div class="flex__slide__text__desc">
-                            <span>Командная работа</span>
-                            <p>Мы формируем команды так, чтобы за счет обмена экспертизой и реализации потенциала каждого сотрудника достигать результатов, превышающих сумму индивидуальных достижений.</p>
-                        </div>
-                    </div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="case swiper-slide" style="background-image:url('img/slider_1/4.png');">
-                <div class="flex__slide container">
-                    <div class="flex__slide__text">
-                        <div class="flex__slide__text__name">Ценности и принципы</div>
-                        <div class="flex__slide__text__desc">
-                            <span>Клиентоориентированность</span>
-                            <p>Мы формируем команды так, чтобы за счет обмена экспертизой и реализации потенциала каждого сотрудника достигать результатов, превышающих сумму индивидуальных достижений.</p>
-                        </div>
-                    </div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="case swiper-slide" style="background-image:url('img/slider_1/5.png');">
-                <div class="flex__slide container">
-                    <div class="flex__slide__text">
-                        <div class="flex__slide__text__name">Ценности и принципы</div>
-                        <div class="flex__slide__text__desc">
-                            <span>Комплаенс</span>
-                            <p>Мы бескомпромиссно придерживаемся принципов прозрачности в ведении бизнеса. Репутация — наш основной приоритет.</p>
-                        </div>
-                    </div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="case swiper-slide" style="background-image:url('img/slider_1/6.png');">
-                <div class="flex__slide container">
-                    <div class="flex__slide__text">
-                        <div class="flex__slide__text__name">Ценности и принципы</div>
-                        <div class="flex__slide__text__desc">
-                            <span>Ответственные путешествия</span>
-                            <p>Мы строим бизнес на принципах устойчивого развития, чтобы обеспечить стратегическое преимущество в настоящем и сохранить будущее для следующих поколений.</p>
-                        </div>
-                    </div>
-                    <div></div>
-                </div>
-            </div>
-        </div>
-        <div class="bottom_slider">
-            <div class="container">
+              <div class="container">
                 <div class="pagination"></div>
+              </div>
             </div>
-        </div>
-    </div>
-</section>
-<section class="clients">
-    <div class="container">
-        <h2>Более 2 800 клиентов</h2>
-        <div class="clients__flex">
-            <div class="clients__flex__item">
+          </div>
+        </section>
+        <section class="clients">
+          <div class="container">
+            <h2>Более 2 800 клиентов</h2>
+            <div class="clients__flex">
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/1.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/1.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/2.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/2.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/3.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/3.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/4.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/4.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/5.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/5.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/6.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/6.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/7.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/7.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item">
+              </div>
+              <div class="clients__flex__item">
                 <div>
-                    <div class="logo"><img src="img/clients/8.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/8.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
+              </div>
             </div>
-        </div>
-    </div>
-    <div class="clients__slider swiper container">
-        <div class="clients_swiper swiper-wrapper">
-            <div class="clients__flex__item swiper-slide">
+          </div>
+          <div class="clients__slider swiper container">
+            <div class="clients_swiper swiper-wrapper">
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/1.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/1.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/2.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/2.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/3.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/3.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/4.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/4.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/5.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/5.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/6.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/6.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/7.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/7.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
-            </div>
-            <div class="clients__flex__item swiper-slide">
+              </div>
+              <div class="clients__flex__item swiper-slide">
                 <div>
-                    <div class="logo"><img src="img/clients/8.svg" alt=""></div>
-                    <div class="text">Сотрудничаем более 10 лет</div>
+                  <div class="logo"><img src="img/clients/8.svg" alt="" /></div>
+                  <div class="text">Сотрудничаем более 10 лет</div>
                 </div>
                 <span>Кейс</span>
+              </div>
             </div>
-
-        </div>
             <div class="navigation">
-                <div class='nav-prev'>
-                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.43135 12.5882L4.83135 8.00818L9.43135 3.42818C9.61783 3.24171 9.76575 3.02033 9.86667 2.77668C9.96759 2.53304 10.0195 2.2719 10.0195 2.00818C10.0195 1.74447 9.96759 1.48333 9.86667 1.23968C9.76575 0.99604 9.61783 0.77466 9.43135 0.588183C9.24487 0.401706 9.02349 0.253784 8.77985 0.152864C8.5362 0.0519429 8.27507 2.08025e-08 8.01135 2.39473e-08C7.74763 2.70921e-08 7.48649 0.0519429 7.24285 0.152864C6.99921 0.253784 6.77783 0.401706 6.59135 0.588183L0.591351 6.58818C0.403894 6.77411 0.255102 6.99531 0.153565 7.23903C0.0520268 7.48275 -0.000247863 7.74416 -0.00024786 8.00818C-0.000247857 8.27221 0.0520269 8.53362 0.153565 8.77734C0.255102 9.02106 0.403894 9.24226 0.591351 9.42818L6.59135 15.4282C6.96796 15.8048 7.47875 16.0164 8.01135 16.0164C8.54395 16.0164 9.05474 15.8048 9.43135 15.4282C9.80796 15.0516 10.0195 14.5408 10.0195 14.0082C10.0195 13.4756 9.80796 12.9648 9.43135 12.5882Z" fill="#545B5E"/>
-                    </svg>
-                </div>
-                <div class='nav-next'>
-                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.588182 12.5882L5.18818 8.00818L0.588182 3.42818C0.401705 3.24171 0.253783 3.02033 0.152863 2.77668C0.0519419 2.53304 -2.70922e-08 2.2719 -2.39473e-08 2.00818C-2.08025e-08 1.74447 0.0519419 1.48333 0.152863 1.23968C0.253783 0.99604 0.401705 0.77466 0.588182 0.588183C0.77466 0.401706 0.996039 0.253784 1.23968 0.152864C1.48333 0.0519429 1.74446 2.08025e-08 2.00818 2.39473e-08C2.2719 2.70921e-08 2.53304 0.0519429 2.77668 0.152864C3.02033 0.253784 3.2417 0.401706 3.42818 0.588183L9.42818 6.58818C9.61564 6.77411 9.76443 6.99531 9.86597 7.23903C9.9675 7.48275 10.0198 7.74416 10.0198 8.00818C10.0198 8.27221 9.9675 8.53362 9.86597 8.77734C9.76443 9.02106 9.61564 9.24226 9.42818 9.42818L3.42818 15.4282C3.05157 15.8048 2.54079 16.0164 2.00818 16.0164C1.47558 16.0164 0.96479 15.8048 0.588182 15.4282C0.211575 15.0516 -1.73397e-07 14.5408 -1.67046e-07 14.0082C-1.60695e-07 13.4756 0.211575 12.9648 0.588182 12.5882Z" fill="#545B5E"/>
-                    </svg>
-                </div>
+              <div class="nav-prev">
+                <svg
+                  width="11"
+                  height="17"
+                  viewBox="0 0 11 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.43135 12.5882L4.83135 8.00818L9.43135 3.42818C9.61783 3.24171 9.76575 3.02033 9.86667 2.77668C9.96759 2.53304 10.0195 2.2719 10.0195 2.00818C10.0195 1.74447 9.96759 1.48333 9.86667 1.23968C9.76575 0.99604 9.61783 0.77466 9.43135 0.588183C9.24487 0.401706 9.02349 0.253784 8.77985 0.152864C8.5362 0.0519429 8.27507 2.08025e-08 8.01135 2.39473e-08C7.74763 2.70921e-08 7.48649 0.0519429 7.24285 0.152864C6.99921 0.253784 6.77783 0.401706 6.59135 0.588183L0.591351 6.58818C0.403894 6.77411 0.255102 6.99531 0.153565 7.23903C0.0520268 7.48275 -0.000247863 7.74416 -0.00024786 8.00818C-0.000247857 8.27221 0.0520269 8.53362 0.153565 8.77734C0.255102 9.02106 0.403894 9.24226 0.591351 9.42818L6.59135 15.4282C6.96796 15.8048 7.47875 16.0164 8.01135 16.0164C8.54395 16.0164 9.05474 15.8048 9.43135 15.4282C9.80796 15.0516 10.0195 14.5408 10.0195 14.0082C10.0195 13.4756 9.80796 12.9648 9.43135 12.5882Z"
+                    fill="#545B5E"
+                  />
+                </svg>
+              </div>
+              <div class="nav-next">
+                <svg
+                  width="11"
+                  height="17"
+                  viewBox="0 0 11 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.588182 12.5882L5.18818 8.00818L0.588182 3.42818C0.401705 3.24171 0.253783 3.02033 0.152863 2.77668C0.0519419 2.53304 -2.70922e-08 2.2719 -2.39473e-08 2.00818C-2.08025e-08 1.74447 0.0519419 1.48333 0.152863 1.23968C0.253783 0.99604 0.401705 0.77466 0.588182 0.588183C0.77466 0.401706 0.996039 0.253784 1.23968 0.152864C1.48333 0.0519429 1.74446 2.08025e-08 2.00818 2.39473e-08C2.2719 2.70921e-08 2.53304 0.0519429 2.77668 0.152864C3.02033 0.253784 3.2417 0.401706 3.42818 0.588183L9.42818 6.58818C9.61564 6.77411 9.76443 6.99531 9.86597 7.23903C9.9675 7.48275 10.0198 7.74416 10.0198 8.00818C10.0198 8.27221 9.9675 8.53362 9.86597 8.77734C9.76443 9.02106 9.61564 9.24226 9.42818 9.42818L3.42818 15.4282C3.05157 15.8048 2.54079 16.0164 2.00818 16.0164C1.47558 16.0164 0.96479 15.8048 0.588182 15.4282C0.211575 15.0516 -1.73397e-07 14.5408 -1.67046e-07 14.0082C-1.60695e-07 13.4756 0.211575 12.9648 0.588182 12.5882Z"
+                    fill="#545B5E"
+                  />
+                </svg>
+              </div>
             </div>
-    </div>
-</section>
-<section class="line__block two">
-    <div class="container">
-        <h2>ПРИГЛАШАЕМ К СОТРУДНИЧЕСТВУ</h2>
-        <div class="back__meeting">
-            <div>Назначить встречу</div>
-            <a href="#" class="btn-base" data-hystmodal="#callback">Назначить</a>
-        </div>
-    </div>
-</section>
+          </div>
+        </section>
+        <section class="line__block two">
+          <div class="container">
+            <h2>ПРИГЛАШАЕМ К СОТРУДНИЧЕСТВУ</h2>
+            <div class="back__meeting">
+              <div>Назначить встречу</div>
+              <a href="#" class="btn-base" data-hystmodal="#callback"
+                >Назначить</a
+              >
+            </div>
+          </div>
+        </section>
 
-<footer>
-    <div class="container">
-        <div class="footer__line__flex">
-            <div class="menu__list__1">
+        <footer>
+          <div class="container">
+            <div class="footer__line__flex">
+              <div class="menu__list__1">
                 <div class="title__menu">Направления</div>
                 <nav class="list__items">
-                    <a href="#" class="menu__items">Деловой туризм</a>
-                    <a href="#" class="menu__items">Организация мероприятий</a>
-                    <a href="#" class="menu__items">Субагентский бизнес</a>
-                    <a href="#" class="menu__items">Путешествия</a>
-                    <a href="#" class="menu__items">IT-разработка</a>
-                    <a href="#" class="menu__items">B2B-партнерство</a>
+                  <a href="#" class="menu__items">Деловой туризм</a>
+                  <a href="#" class="menu__items">Организация мероприятий</a>
+                  <a href="#" class="menu__items">Субагентский бизнес</a>
+                  <a href="#" class="menu__items">Путешествия</a>
+                  <a href="#" class="menu__items">IT-разработка</a>
+                  <a href="#" class="menu__items">B2B-партнерство</a>
                 </nav>
-            </div>
-            <div class="menu__list__2">
+              </div>
+              <div class="menu__list__2">
                 <div class="title__menu">Группа компаний</div>
                 <nav class="list__items">
-                    <a href="#" class="menu__items">О компании</a>
-                    <a href="#" class="menu__items">История</a>
-                    <a href="#" class="menu__items">Контакты</a>
-                    <a href="#" class="menu__items">Инвесторам</a>
-                    <a href="#" class="menu__items">Устойчивое развитие</a>
+                  <a href="#" class="menu__items">О компании</a>
+                  <a href="history.html" class="menu__items">История</a>
+                  <a href="#" class="menu__items">Контакты</a>
+                  <a href="#" class="menu__items">Инвесторам</a>
+                  <a href="#" class="menu__items">Устойчивое развитие</a>
                 </nav>
-            </div>
-            <div class="menu__list__3">
+              </div>
+              <div class="menu__list__3">
                 <div class="title__menu">HR-Бренд</div>
                 <nav class="list__items">
-                    <a href="#" class="menu__items">Программы для сотрудников</a>
+                  <a href="#" class="menu__items">Программы для сотрудников</a>
                 </nav>
-            </div>
-            <div class="menu__list__4">
+              </div>
+              <div class="menu__list__4">
                 <div class="title__menu">Медиацентр</div>
                 <nav class="list__items">
-                    <a href="#" class="menu__items">Новости</a>
-                    <a href="#" class="menu__items">СМИ о нас</a>
-                    <a href="#" class="menu__items">D-trends</a>
+                  <a href="#" class="menu__items">Новости</a>
+                  <a href="#" class="menu__items">СМИ о нас</a>
+                  <a href="#" class="menu__items">D-trends</a>
                 </nav>
-            </div>
-            <div class="info__block">
+              </div>
+              <div class="info__block">
                 <div class="f__ib__b_1__flex">
-                    <span>Москва, 3-я Рыбинская ул., д.18, стр.22 (вход со 2-й Рыбинской улицы)</span>
-                    <a href="tel:+74957441111">+7 (495) 744 11 11</a>
-                    <a href="mailto:booking@aeroclub.ru">booking@aeroclub.ru</a>
+                  <span
+                    >Москва, 3-я Рыбинская ул., д.18, стр.22 (вход со 2-й
+                    Рыбинской улицы)</span
+                  >
+                  <a href="tel:+74957441111">+7 (495) 744 11 11</a>
+                  <a href="mailto:booking@aeroclub.ru">booking@aeroclub.ru</a>
                 </div>
                 <div class="f__ib__b_2__title">Представительства:</div>
                 <div class="f__ib__b_2__flex">
-                    <span>Казахстан aeroclub.kz</span>
-                    <span>Турции bercantour.com</span>
+                  <span>Казахстан aeroclub.kz</span>
+                  <span>Турции bercantour.com</span>
                 </div>
-            </div>
-            <div class="soc">
+              </div>
+              <div class="soc">
                 <a href="#">
-                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.000000" height="48.000000" fill="none" customFrame="#000000">
-                        <g id="Group 4741">
-                            <circle id="Ellipse 2" cx="24" cy="24" r="24" fill="rgb(228,37,45)" />
-                            <path id="Vector" d="M36.1515 14.0949C35.88 13.8874 35.5495 13.7496 35.1959 13.6965C34.8423 13.6433 34.4792 13.6767 34.1456 13.7932L11.4197 21.6965C11.0236 21.8342 10.6885 22.0818 10.4646 22.4022C10.2407 22.7226 10.14 23.0985 10.1776 23.4739C10.2152 23.8491 10.3891 24.2034 10.6732 24.484C10.9573 24.7644 11.3364 24.9561 11.7537 25.0299L17.5262 26.0519L17.5262 32.4344C17.5259 32.7795 17.6413 33.1169 17.8577 33.4039C18.0741 33.6909 18.3819 33.9145 18.742 34.0466C19.1022 34.1787 19.4985 34.2131 19.8808 34.1457C20.2631 34.0782 20.6141 33.9119 20.8896 33.6677L24.0841 30.8398L28.9327 34.6168C29.2897 34.8975 29.7505 35.0527 30.2278 35.0532C30.4353 35.0529 30.6415 35.024 30.8389 34.9674C31.1645 34.876 31.4574 34.7105 31.6883 34.4876C31.9191 34.2647 32.0799 33.9922 32.1546 33.6971L36.7863 15.8062C36.8669 15.4968 36.8504 15.1738 36.7385 14.8722C36.6266 14.5705 36.4235 14.3017 36.1515 14.0949ZM19.8808 29.0696L20.0887 25.4042L34.6983 16.064L19.8808 29.0696Z" fill="rgb(255,255,255)" fill-rule="nonzero" />
-                        </g>
-                    </svg>
-
+                  <svg
+                    viewBox="0 0 48 48"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="48.000000"
+                    height="48.000000"
+                    fill="none"
+                    customFrame="#000000"
+                  >
+                    <g id="Group 4741">
+                      <circle
+                        id="Ellipse 2"
+                        cx="24"
+                        cy="24"
+                        r="24"
+                        fill="rgb(228,37,45)"
+                      />
+                      <path
+                        id="Vector"
+                        d="M36.1515 14.0949C35.88 13.8874 35.5495 13.7496 35.1959 13.6965C34.8423 13.6433 34.4792 13.6767 34.1456 13.7932L11.4197 21.6965C11.0236 21.8342 10.6885 22.0818 10.4646 22.4022C10.2407 22.7226 10.14 23.0985 10.1776 23.4739C10.2152 23.8491 10.3891 24.2034 10.6732 24.484C10.9573 24.7644 11.3364 24.9561 11.7537 25.0299L17.5262 26.0519L17.5262 32.4344C17.5259 32.7795 17.6413 33.1169 17.8577 33.4039C18.0741 33.6909 18.3819 33.9145 18.742 34.0466C19.1022 34.1787 19.4985 34.2131 19.8808 34.1457C20.2631 34.0782 20.6141 33.9119 20.8896 33.6677L24.0841 30.8398L28.9327 34.6168C29.2897 34.8975 29.7505 35.0527 30.2278 35.0532C30.4353 35.0529 30.6415 35.024 30.8389 34.9674C31.1645 34.876 31.4574 34.7105 31.6883 34.4876C31.9191 34.2647 32.0799 33.9922 32.1546 33.6971L36.7863 15.8062C36.8669 15.4968 36.8504 15.1738 36.7385 14.8722C36.6266 14.5705 36.4235 14.3017 36.1515 14.0949ZM19.8808 29.0696L20.0887 25.4042L34.6983 16.064L19.8808 29.0696Z"
+                        fill="rgb(255,255,255)"
+                        fill-rule="nonzero"
+                      />
+                    </g>
+                  </svg>
                 </a>
+              </div>
             </div>
-        </div>
-        <div class="footer__line__two">
-            <div>
+            <div class="footer__line__two">
+              <div>
                 <a href="#" class="logo">
-                    <img src="img/logo.svg" alt="">
+                  <img src="img/logo.svg" alt="" />
                 </a>
                 <span>2025 © АК Плюс</span>
+              </div>
+              <a href="#">Политика обработки персональных данных</a>
             </div>
-            <a href="#">Политика обработки персональных данных</a>
-        </div>
+          </div>
+
+          <div class="hystmodal" id="callback" aria-hidden="true">
+            <div class="hystmodal__wrap">
+              <div class="hystmodal__window" role="dialog" aria-modal="true">
+                <button data-hystclose class="hystmodal__close">Закрыть</button>
+                <form id="callback__form" method="post" class="callback__form">
+                  <input type="hidden" name="IP" value="185.165.216.71" />
+                  <div class="title__block">Назначить встречу</div>
+                  <div class="name__block">
+                    <input
+                      type="text"
+                      required
+                      name="name"
+                      id="name"
+                      placeholder="Напишите свое имя"
+                    />
+                  </div>
+                  <div class="name__block">
+                    <input
+                      type="text"
+                      required
+                      name="company"
+                      id="company"
+                      placeholder="Компания"
+                    />
+                  </div>
+                  <div class="name__block">
+                    <input
+                      type="email"
+                      required
+                      name="email"
+                      id="email"
+                      placeholder="Корпоративный e-mail"
+                    />
+                  </div>
+                  <div class="phone__block">
+                    <input
+                      type="tel"
+                      required
+                      name="phone"
+                      id="phone"
+                      autocomplete="off"
+                      placeholder="Телефон"
+                    />
+                  </div>
+                  <div class="flex__bottom__footer">
+                    <input
+                      class="form-checkbox__input"
+                      type="checkbox"
+                      id="licenses"
+                      checked="checked"
+                      name="licenses_popup"
+                      required=""
+                      aria-required="true"
+                    />
+                    <label for="licenses"></label>
+                    <div for="licenses">
+                      <span
+                        >Нажимая на кнопку, вы даете согласие на обработку
+                        персональных данных и соглашаетесь c
+                        <a href="/politika-konfidentsialnosti/" target="_blank"
+                          >политикой конфиденциальности</a
+                        ></span
+                      >
+                    </div>
+                  </div>
+                  <div class="send__block btn-base">
+                    <input type="submit" value="Назначить" />
+                  </div>
+                  <div class="success-message">Ваша заявка отправлена</div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
-
-    
-<div class="hystmodal" id="callback" aria-hidden="true">
-    <div class="hystmodal__wrap">
-        <div class="hystmodal__window" role="dialog" aria-modal="true">
-            <button data-hystclose class="hystmodal__close">Закрыть</button>
-	        <form id="callback__form" method="post" class="callback__form">
-	        	<input type="hidden" name="IP" value="185.165.216.71">
-		        <div class="title__block">Назначить встречу</div>
-		        <div class="name__block"><input type="text" required name="name" id="name" placeholder="Напишите свое имя"></div>
-		        <div class="name__block"><input type="text" required name="company" id="company" placeholder="Компания"></div>
-		        <div class="name__block"><input type="email" required name="email" id="email" placeholder="Корпоративный e-mail"></div>
-		        <div class="phone__block"><input type="tel" required name="phone" id="phone" autocomplete="off" placeholder="Телефон"></div>				
-			    <div class="flex__bottom__footer">
-			   		<input class="form-checkbox__input" type="checkbox" id="licenses" checked="checked" name="licenses_popup" required="" aria-required="true">
-			   		<label for="licenses"></label>
-			        <div for="licenses">
-			    		<span>Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="/politika-konfidentsialnosti/" target="_blank">политикой конфиденциальности</a></span>
-			    	</div>
-			    </div>
-		        <div class="send__block btn-base"><input type="submit" value="Назначить"></div>
-                <div class="success-message">Ваша заявка отправлена</div>
-	    	</form>
-
-        </div>
-    </div>
-</div>
-
-</footer>
-
-</div>
-</div>
-</body>
+  </body>
 </html>

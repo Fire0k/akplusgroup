@@ -1,0 +1,11 @@
+{
+  "[html]": {
+   "prettier.tabWidth": 4,
+  },
+  "[javascript]": {
+    "prettier.tabWidth": 4,
+  },
+  "[css]": {
+    "prettier.tabWidth": 4,
+  }
+}
