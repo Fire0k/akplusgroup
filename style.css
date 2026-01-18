@@ -3066,6 +3066,124 @@ body input[type="submit"]:hover {
     background-size: 50%;
 }
 
+/*История компании*/
+.history-slider {
+    height: auto
+}
+.swiper {
+    width: 100%;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 534px;
+    height: auto;
+}
+.swiper-history {
+    height: auto;
+    padding-bottom: 30px;
+    background-color: #e9eaf3ff;
+}
+.swiper-slide img {
+    display: block;
+    width: 100%;
+}
+.swiper-history-pagination {
+    position: unset;
+    margin-bottom: 60px;
+    padding-top: 50px;
+}
+.swiper-history-pagination .swiper-pagination-bullet {
+    margin: 0 !important;
+    background-color: grey !important;
+    position: relative;
+    width: 100px;
+}
+.swiper-history-pagination .swiper-pagination-bullet::before {
+    width: 100%;
+    position: absolute;
+    top: -48px;
+    left: 0;
+    text-align: center;
+    color: grey;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 1"]::before {
+    content: '1994';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 2"]::before {
+    content: '2004';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 3"]::before {
+    content: '2006';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 4"]::before {
+    content: '2007';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 5"]::before {
+    content: '2009';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 6"]::before {
+    content: '2012';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 7"]::before {
+    content: '2013';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 8"]::before {
+    content: '2014';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 9"]::before {
+    content: '2015';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 10"]::before {
+    content: '2016';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 11"]::before {
+    content: '2018';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 12"]::before {
+    content: '2020';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 13"]::before {
+    content: '2021';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 14"]::before {
+    content: '2022';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 15"]::before {
+    content: '2023';
+}
+.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 16"]::before {
+    content: '2024';
+}
+.swiper-history-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #E4252D !important;
+}
+.swiper-history-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+    color: #E4252D;
+}
+
+.history-slider-text {
+    width: 534px;
+    margin: 0 auto;
+    display: none;
+}
+.history-slider-text.active {
+    display: block;
+}
+.history-slider-text .slidet-text-title {
+    font-size: 54px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+.history-slider-text .slidet-text {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+/*END История компании*/
+
 /* Адаптив */
 
 @media (max-width: 1776px) {
