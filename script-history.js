@@ -1,5 +1,17 @@
 $(function () {
     /*СЛАЙДЕР ИСТОРИИ*/
+    const swiperEl = document.querySelector(".swiper-history");
+    const footerEl = document.querySelector("footer");
+
+    const swiperScrollTrigger = ScrollTrigger.create({
+        trigger: swiperEl,
+        pin: true,
+        start: "top top",
+        pinSpacing: false,
+        endTrigger: footerEl,
+        end: "top bottom",
+    });
+
     let swiperHistory = new Swiper(".swiper-history", {
         effect: "coverflow",
         grabCursor: true,
@@ -27,9 +39,11 @@ $(function () {
             } else {
                 el.classList.remove('active');
             }
-        })
+        });
+        
+        swiperScrollTrigger.refresh();
     }
-    
+
     swiperHistory.on('init', function(event) {
         toggleText(event.activeIndex);
     });
@@ -37,18 +51,5 @@ $(function () {
         toggleText(event.activeIndex);
     });
     swiperHistory.init();
-
-    const swiperEl = document.querySelector(".swiper-history");
-    const textEl = document.querySelector(".history-slider-text");
-
-    const swiperScrollTrigger = ScrollTrigger.create({
-        trigger: swiperEl,
-        pin: true,
-        start: "top top",
-        pinSpacing: false,
-        endTrigger: textEl,
-        end: "bottom bottom",
-        fastScrollEnd: true,
-    });
     /*END СЛАЙДЕР ИСТОРИИ*/
 })
