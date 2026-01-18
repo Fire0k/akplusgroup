@@ -130,7 +130,7 @@ a{
     height: 941px;
     color: #ffffff;
     overflow: hidden;
-    background: url("/h_back.png") center/cover no-repeat;
+    background: url("/img/h_back.png") center/cover no-repeat;
 }
 
 .container {
