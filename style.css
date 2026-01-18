@@ -130,7 +130,7 @@ a{
     height: 941px;
     color: #ffffff;
     overflow: hidden;
-    background: url("/img/h_back.png") center/cover no-repeat;
+    background: url("img/h_back.png") center/cover no-repeat;
 }
 
 .container {
@@ -435,12 +435,12 @@ body a.btn-base:hover {
 
 .dir-card:nth-child(1):after {
     content: "";
-    background-image: url('/img/cards/1_.svg');
+    background-image: url('img/cards/1_.svg');
 }
 
 .directions.has-active .dir-card:nth-child(1):after {
     content: "";
-    background-image: url('/img/cards/1.svg');
+    background-image: url('img/cards/1.svg');
 }
 
 .dir-card:nth-child(2) {
@@ -449,12 +449,12 @@ body a.btn-base:hover {
 
 .dir-card:nth-child(2):after {
     content: "";
-    background-image: url("/img/cards/2_.svg");
+    background-image: url("img/cards/2_.svg");
 }
 
 .directions.has-active .dir-card:nth-child(2):after {
     content: "";
-    background-image: url("/img/cards/2.svg");
+    background-image: url("img/cards/2.svg");
 }
 
 .dir-card:nth-child(3) {
@@ -464,12 +464,12 @@ body a.btn-base:hover {
 
 .dir-card:nth-child(3):after {
     content: "";
-    background-image: url('/img/cards/3_.svg');
+    background-image: url('img/cards/3_.svg');
 }
 
 .directions.has-active .dir-card:nth-child(3):after {
     content: "";
-    background-image: url('/img/cards/3.svg');
+    background-image: url('img/cards/3.svg');
 }
 
 .dir-card:nth-child(4) {
@@ -478,12 +478,12 @@ body a.btn-base:hover {
 
 .dir-card:nth-child(4):after {
     content: "";
-    background-image: url('/img/cards/4_.svg');
+    background-image: url('img/cards/4_.svg');
 }
 
 .directions.has-active .dir-card:nth-child(4):after {
     content: "";
-    background-image: url('/img/cards/4.svg');
+    background-image: url('img/cards/4.svg');
 }
 
 .dir-card:nth-child(5) {
@@ -492,12 +492,12 @@ body a.btn-base:hover {
 
 .dir-card:nth-child(5):after {
     content: "";
-    background-image: url('/img/cards/5_.svg');
+    background-image: url('img/cards/5_.svg');
 }
 
 .directions.has-active .dir-card:nth-child(5):after {
     content: "";
-    background-image: url('/img/cards/5.svg');
+    background-image: url('img/cards/5.svg');
 }
 
 .dir-card:nth-child(6) {
@@ -506,12 +506,12 @@ body a.btn-base:hover {
 
 .dir-card:nth-child(6):after {
     content: "";
-    background-image: url('/img/cards/6_.svg');
+    background-image: url('img/cards/6_.svg');
 }
 
 .directions.has-active .dir-card:nth-child(6):after {
     content: "";
-    background-image: url('/img/cards/6.svg');
+    background-image: url('img/cards/6.svg');
 }
 
 .dir-card:last-child {
@@ -574,7 +574,7 @@ body a.btn-base:hover {
 }
 
 .line__block .back__meeting:after {
-    background-image: url("/img/back__line.png");
+    background-image: url("img/back__line.png");
     content: "";
     position: absolute;
     top: 0;
@@ -726,7 +726,7 @@ body a.btn-base:hover {
 /*aik__block*/
 
 .aik__block{
-    background: url("/img/back__aik.png") no-repeat;
+    background: url("img/back__aik.png") no-repeat;
     background-size: cover;
     padding: 80px 0;
     height: 940px;
@@ -1563,8 +1563,8 @@ footer{
     body .slider_one .swiper-slide{background-position: unset;}
     body .flex__slide .flex__slide__text{gap: 200px;padding: 30px 0 30px 0}
     .flex__slide__text__desc span{font-size: 24px;}
-    body .aik__block{background: url(/img/back_mob_desc.png) no-repeat 100%/cover;height: 874px;}
-    .hero{background: url(/img/back_mob_banner.png) no-repeat;background-position: unset;background-size: cover;aspect-ratio: 372 / 545;width: 100%;height: auto;}
+    body .aik__block{background: url(img/back_mob_desc.png) no-repeat 100%/cover;height: 874px;}
+    .hero{background: url(img/back_mob_banner.png) no-repeat;background-position: unset;background-size: cover;aspect-ratio: 372 / 545;width: 100%;height: auto;}
     .directions_swiper article{padding: 30px 0 0 16px;}
     .hero__title{font-size: 62px;max-width: 100%;}
     .directions_swiper article{height: 450px}
