@@ -3070,103 +3070,52 @@ body input[type="submit"]:hover {
 .history-slider {
     height: auto
 }
-.swiper {
-    width: 100%;
+
+.swiper-history-pagination-wrapper {
+    padding: 10px 20px 0;
+    overflow: hidden;
+    background-color: #e9eaf3;
 }
-.swiper-slide {
-    background-position: center;
-    background-size: cover;
-    width: 534px;
-    height: auto;
+.swiper-history-pagination .swiper-wrapper {
+    width: fit-content;
 }
+.swiper-history-pagination .pagination-bullet {
+    border-bottom: 6px solid grey !important;
+    padding-bottom: 20px;
+    width: 100px;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 18px;
+    color: grey;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: .2;
+}
+.swiper-history-pagination .pagination-bullet.active {
+    border-color: #E4252D !important;
+    color: #E4252D;
+    opacity: 1;
+}
+
 .swiper-history {
     height: auto;
-    padding-bottom: 30px;
+    padding: 50px 0 30px;
     background-color: #e9eaf3ff;
+    width: 100%;
 }
-.swiper-slide img {
+.swiper-history .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 700px;
+    height: auto;
+}
+.swiper-history .swiper-slide img {
     display: block;
     width: 100%;
 }
-.swiper-history-pagination {
-    position: unset;
-    margin-bottom: 60px;
-    padding-top: 50px;
-}
-.swiper-history-pagination .swiper-pagination-bullet {
-    margin: 0 !important;
-    background-color: grey !important;
-    position: relative;
-    width: 100px;
-}
-.swiper-history-pagination .swiper-pagination-bullet::before {
-    width: 100%;
-    position: absolute;
-    top: -48px;
-    left: 0;
-    text-align: center;
-    color: grey;
-    font-weight: 500;
-    font-size: 18px;
-}
-
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 1"]::before {
-    content: '1994';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 2"]::before {
-    content: '2004';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 3"]::before {
-    content: '2006';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 4"]::before {
-    content: '2007';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 5"]::before {
-    content: '2009';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 6"]::before {
-    content: '2012';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 7"]::before {
-    content: '2013';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 8"]::before {
-    content: '2014';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 9"]::before {
-    content: '2015';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 10"]::before {
-    content: '2016';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 11"]::before {
-    content: '2018';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 12"]::before {
-    content: '2020';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 13"]::before {
-    content: '2021';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 14"]::before {
-    content: '2022';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 15"]::before {
-    content: '2023';
-}
-.swiper-history-pagination .swiper-pagination-bullet[aria-label="Go to slide 16"]::before {
-    content: '2024';
-}
-.swiper-history-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: #E4252D !important;
-}
-.swiper-history-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
-    color: #E4252D;
-}
 
 .history-slider-text {
-    width: 534px;
+    width: 700px;
     margin: 0 auto;
     display: none;
 }
@@ -3180,7 +3129,7 @@ body input[type="submit"]:hover {
 }
 .history-slider-text .slidet-text {
     font-size: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 /*END История компании*/
 
