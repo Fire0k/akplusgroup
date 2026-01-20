@@ -14,20 +14,6 @@ $(function () {
         endTrigger: footerEl,
         end: "top bottom",
     });
-    // const swiperScrollTriggerEND = ScrollTrigger.create({
-    //     trigger: footerEl,
-    //     start: "top bottom",
-    //     end: "top bottom",
-    //     onEnter: (event) => {
-    //         console.log(event)
-    //         // const style = swiperScrollTrigger.saveStyles()
-    //         swiperScrollTrigger.disable()
-    //     },
-    //     onEnterBack: (event) => {
-    //         console.log('enback', event)
-    //         swiperScrollTrigger.enable()
-    //     },
-    // });
 
     // Слайдер
     let swiperHistory = new Swiper(".swiper-history", {
@@ -52,8 +38,15 @@ $(function () {
                 el.classList.remove('active');
             }
         });
-        
-        setTimeout(() => swiperScrollTrigger.refresh(true), refreshDelay);
+
+        if (swiperScrollTrigger.isActive) {
+            const start = swiperScrollTrigger.start;
+            swiperScrollTrigger.scroll(start)
+        }
+
+        setTimeout(() => {
+            swiperScrollTrigger.refresh(false);
+        }, refreshDelay);
     }
     swiperHistory.on('slideChange', (swiper) => {
         if (activeBullet) {
