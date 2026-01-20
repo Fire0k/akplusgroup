@@ -14,6 +14,20 @@ $(function () {
         endTrigger: footerEl,
         end: "top bottom",
     });
+    // const swiperScrollTriggerEND = ScrollTrigger.create({
+    //     trigger: footerEl,
+    //     start: "top bottom",
+    //     end: "top bottom",
+    //     onEnter: (event) => {
+    //         console.log(event)
+    //         // const style = swiperScrollTrigger.saveStyles()
+    //         swiperScrollTrigger.disable()
+    //     },
+    //     onEnterBack: (event) => {
+    //         console.log('enback', event)
+    //         swiperScrollTrigger.enable()
+    //     },
+    // });
 
     // Слайдер
     let swiperHistory = new Swiper(".swiper-history", {
@@ -21,7 +35,6 @@ $(function () {
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: "auto",
-        init: false,
         coverflowEffect: {
             rotate: 50,
             stretch: 0,
@@ -30,7 +43,7 @@ $(function () {
             slideShadows: false,
         },
     });
-    const toggleText = (index) => {
+    const toggleText = (index, refreshDelay) => {
         const tesxtEls = document.querySelectorAll('.history-slider-text');
         tesxtEls.forEach(el => {
             if (el.classList.contains(`text-index-${index}`)) {
@@ -40,11 +53,8 @@ $(function () {
             }
         });
         
-        swiperScrollTrigger.refresh();
+        setTimeout(() => swiperScrollTrigger.refresh(true), refreshDelay);
     }
-    swiperHistory.on('init', function(event) {
-        toggleText(event.activeIndex);
-    });
     swiperHistory.on('slideChange', (swiper) => {
         if (activeBullet) {
             activeBullet.classList.remove('active');
@@ -52,7 +62,8 @@ $(function () {
         activeBullet = swiperHistoryPagination.slides[swiper.activeIndex];;
         activeBullet.classList.add('active');
 
-        toggleText(swiper.activeIndex);
+
+        toggleText(swiper.activeIndex, swiper.params.speed);
     });
     swiperHistory.on('click', (swiper, event) => {
         const { clientX, clientY } = event;
@@ -84,17 +95,8 @@ $(function () {
         slidesPerView: 'auto',
         freeMode: true,
         mousewheel: true,
-        init: false,
     });
-    let activeBullet;
-    swiperHistoryPagination.on('init', (swiper) => {
-       if (activeBullet) {
-            activeBullet.classList.remove('active');
-        }
-        activeBullet = swiper.slides[0];
-        activeBullet.classList.add('active');
-        swiperHistory.slideTo(swiper.clickedIndex);
-    });
+    let activeBullet = swiperHistoryPagination.slides[0];
     swiperHistoryPagination.on('click', (swiper) => {
         if (activeBullet) {
             activeBullet.classList.remove('active');
@@ -103,7 +105,6 @@ $(function () {
         activeBullet.classList.add('active');
         swiperHistory.slideTo(swiper.clickedIndex);
     });
-    swiperHistoryPagination.init();
 
     /*END СЛАЙДЕР ИСТОРИИ*/
 })
