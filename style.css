@@ -3160,9 +3160,6 @@ body input[type="submit"]:hover {
 .history-slider-text .slidet-text {
     font-size: 20px;
 }
-.history-slider-text:last-of-type {
-    margin-bottom: 0;
-}
 
 @media (max-width: 820px) {
     .swiper-history .swiper-slide { width: 600px; }
