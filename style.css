@@ -3132,7 +3132,7 @@ body input[type="submit"]:hover {
 
 .swiper-history {
     height: auto;
-    padding: 30px 0 0;
+    padding: 30px 0 30px;
     background-color: #e9eaf3ff;
     width: 100%;
 }
