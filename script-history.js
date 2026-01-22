@@ -102,7 +102,6 @@ $(function () {
         end: "top bottom",
         markers: true,
         onUpdate: (event) => {
-            console.log(event.progress);
             if (!isMobile) return;
 
             if (
