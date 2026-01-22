@@ -94,7 +94,6 @@ $(function () {
         pinSpacing: false,
         endTrigger: footerEl,
         end: "top bottom",
-        markers: true,
         onUpdate: (event) => {
             if (!isMobile) return;
 
