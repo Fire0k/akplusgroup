@@ -1,15 +1,15 @@
 $(function () {
     /*СЛАЙДЕР ИСТОРИИ*/
+    window.history.scrollRestoration = "manual";
 
     const swiperEl = document.querySelector(".scroll-anchor");
     const footerEl = document.querySelector("footer");
     const progressScale = document.querySelector(".progress-bar-scale");
     const bottomGradient = document.querySelector('.bottom-gradient');
-    const section = document.querySelector('.history-slider')
-    const textEls = [...document.querySelectorAll('[data-text-index]')]
 
     const isMobile = window.innerWidth <= 520;
 
+    const SLIDES_COUNT = 16;
     const swiperHistory = new Swiper(".swiper-history", {
         effect: "coverflow",
         grabCursor: true,
@@ -24,6 +24,7 @@ $(function () {
         },
     });
 
+    // Якорь для градиента внизу
     const gradientScrollTrigger = ScrollTrigger.create({
         trigger: swiperEl,
         start: "bottom bottom",
@@ -40,52 +41,26 @@ $(function () {
         },
     });
 
-    // Якорь для скролла
-    const SLIDES_COUNT = 16;
-    let currentStep = -1;
-    let isManualScrolling = false;
+    // Якорь для скролла и переменные для хранения текущего состояния скролла
+    let previousText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex - 1}']`);
+    let currentText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex}']`);
+    let nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
+    let canScrollForNext = true;
 
-    const heights = textEls.map(el => el.getBoundingClientRect().height);
-    const totalHeight = heights.reduce((sum, h) => sum + h, 0);
-    const thresholds = [];
+    /**
+     * Перелистываем слайдер, когда тайтл его текста пересекает слайдер
+     * Исключение - последние слайды, т.к. топ их текста никогда не достигнет слайдера
+     * Ниже переменный для обработки такого кейса
+     */
+    let finalHeight = 0;
+    let finalProgress = 0;
+    let finalSlidesCount = 0;
+    let progressesForNext = [];
+    let currentStep = 0;
 
-    let accumulatedHeight = 0;
-    const total = heights.length;
-
-    const firstEnd = Math.floor(total / 3);
-    const secondEnd = Math.floor((total * 2) / 3);
-
-    for (let i = 0; i < total; i++) {
-        let point;
-
-        if (i < firstEnd) {
-            point = accumulatedHeight;
-        } else if (i < secondEnd) {
-            point = accumulatedHeight + heights[i] / 2;
-        } else {
-            point = accumulatedHeight + heights[i];
-        }
-
-        thresholds.push(point / totalHeight);
-
-        accumulatedHeight += heights[i];
-    }
-
-    const mid = Math.floor(heights.length / 2);
-
-    for (let i = 0; i < heights.length; i++) {
-        let point;
-
-        if (i < mid) {
-            point = accumulatedHeight;
-        } else {
-            point = accumulatedHeight + heights[i];
-        }
-
-        thresholds.push(point / totalHeight);
-
-        accumulatedHeight += heights[i];
-    }
+    let lastProgress = 0;
+    let direction = 0;
+    const EPS = 0.002;
 
     const swiperScrollTrigger = ScrollTrigger.create({
         trigger: swiperEl,
@@ -96,31 +71,89 @@ $(function () {
         end: "top bottom",
         onUpdate: (event) => {
             if (!isMobile) return;
-
-            if (
-                currentStep < thresholds.length - 1 &&
-                event.progress >= thresholds[currentStep + 1] &&
-                !isManualScrolling
-            ) {
-                currentStep++;
-                swiperHistory.slideTo(currentStep);
-            }
-
-            if (
-                currentStep > 0 &&
-                event.progress < thresholds[currentStep] &&
-                !isManualScrolling
-            ) {
-                currentStep--;
-                swiperHistory.slideTo(currentStep);
-            }
-
             progressScale.style.width = `${event.progress * 100}%`;
+
+            // if (isManualScrolling) return;
+
+            const delta = event.progress - lastProgress;
+            if (Math.abs(delta) > EPS) {
+                direction = delta > 0 ? 1 : -1;
+                lastProgress = event.progress;
+            }
+
+            const scrollHeight = event.end - event.start;
+
+            const currentScrollHeight = scrollHeight * event.progress;
+            const remainingHeight = scrollHeight - currentScrollHeight;
+
+            const scrollForNext = nextText.getBoundingClientRect().top - swiperEl.getBoundingClientRect().bottom;
+            canScrollForNext = scrollForNext <= remainingHeight;
+
+            if (direction === 1) {
+                if (!canScrollForNext) {
+                    if (event.progress >= progressesForNext[currentStep]) {
+                        swiperHistory.slideTo(swiperHistory.activeIndex + 1);
+
+                        currentStep = Math.min(currentStep + 1, progressesForNext.length - 1);
+                    }
+
+                    return;
+                }
+
+                if (swiperEl.getBoundingClientRect().bottom >= nextText.getBoundingClientRect().top) {
+                    swiperHistory.slideTo(swiperHistory.activeIndex + 1);
+
+                    previousText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex - 1}']`);
+                    currentText = nextText;
+                    nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
+
+                    if (!canScrollForNext) {
+                        finalHeight = remainingHeight;
+                        finalProgress = 1 - event.progress;
+                        finalSlidesCount = SLIDES_COUNT - (swiperHistory.activeIndex + 1);
+                        progressesForNext = [];
+
+                        for (let i = 1; i <= finalSlidesCount; i++) {
+                            progressesForNext.push(event.progress + (finalProgress / finalSlidesCount * i))
+                        }
+                        currentStep = 0;
+                    }
+                }
+            } else {
+                if (!canScrollForNext) {
+                    if (event.progress <= progressesForNext[currentStep]) {
+                        swiperHistory.slideTo(swiperHistory.activeIndex - 1);
+
+                        currentStep -= 1;
+                        if (currentStep < 0) {
+                            currentStep = 0;
+                            canScrollForNext = true;
+                        }
+                    }
+
+                    return;
+                }
+
+                if (previousText && swiperEl.getBoundingClientRect().bottom <= previousText.getBoundingClientRect().top) {
+                    swiperHistory.slideTo(swiperHistory.activeIndex - 1);
+
+                    nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
+                    currentText = previousText;
+                    previousText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex - 1}']`);
+                }
+            }
         },
     });
 
+    /**
+     * Функции для переключения текста при смене слайда
+     * Для десктопа и мобильных разное поведение
+     * - Десктоп - смета текстового блока
+     * - Мобильные - скролл до нужного текстового блока
+     */
     const toggleText = (index, refreshDelay) => {
         if (isMobile) return;
+
         const tesxtEls = document.querySelectorAll('.history-slider-text');
         tesxtEls.forEach(el => {
             if (Number(el.dataset.textIndex) === index) {
@@ -143,12 +176,27 @@ $(function () {
     const scrollToText = (targetIndex) => {
         if (!isMobile) return;
 
-        const targetProgress = targetIndex / SLIDES_COUNT;
-        const scrollY = swiperScrollTrigger.start + targetProgress * (swiperScrollTrigger.end - swiperScrollTrigger.start);
+        const targetTextEl = document.querySelector(`[data-text-index='${targetIndex}']`);
 
-        isManualScrolling = true;
-        gsap.to(window, { duration: 0.3, scrollTo: scrollY });
-        setTimeout(() => isManualScrolling = false, 300)
+        if (canScrollForNext) {
+            let scrollLength = swiperEl.getBoundingClientRect().bottom - targetTextEl.getBoundingClientRect().top;
+
+            if (scrollLength < 0) {
+                scrollLength -= 10;
+            } else {
+                scrollLength += 10;
+            }
+
+            window.scrollBy({ top: -scrollLength, behavior: 'smooth' });
+        } else {
+            const currentProgess = swiperScrollTrigger.progress;
+            const targetProgress = progressesForNext[finalSlidesCount - (SLIDES_COUNT - targetIndex)];
+
+            const scrollY = swiperScrollTrigger.start + targetProgress * (swiperScrollTrigger.end - swiperScrollTrigger.start);
+            console.log(finalSlidesCount - (SLIDES_COUNT - targetIndex), targetProgress, scrollY)
+
+            window.scrollTo({ top: scrollY, behavior: 'smooth' });
+        }
     }
 
     swiperHistory.on('click', (swiper, event) => {
@@ -174,8 +222,6 @@ $(function () {
         });
 
         if (targetIndex != null) {
-            swiper.slideTo(targetIndex);
-
             scrollToText(targetIndex);
         }
     });
@@ -188,8 +234,6 @@ $(function () {
     });
     let activeBullet = swiperHistoryPagination.slides[0];
     swiperHistoryPagination.on('click', (swiper) => {
-        swiperHistory.slideTo(swiper.clickedIndex);
-
         scrollToText(swiper.clickedIndex);
     });
 
