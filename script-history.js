@@ -3,20 +3,15 @@ $(function () {
 
     const swiperEl = document.querySelector(".scroll-anchor");
     const footerEl = document.querySelector("footer");
+    const progressScale = document.querySelector(".progress-bar-scale");
+    const bottomGradient = document.querySelector('.bottom-gradient');
+    const section = document.querySelector('.history-slider')
+    const textEls = [...document.querySelectorAll('[data-text-index]')]
 
-    // Якорь для скролла
-    gsap.registerPlugin(ScrollTrigger);
-    const swiperScrollTrigger = ScrollTrigger.create({
-        trigger: swiperEl,
-        pin: true,
-        start: "top top",
-        pinSpacing: false,
-        endTrigger: footerEl,
-        end: "top bottom",
-    });
+    const isMobile = window.innerWidth <= 520;
 
     // Слайдер
-    let swiperHistory = new Swiper(".swiper-history", {
+    const swiperHistory = new Swiper(".swiper-history", {
         effect: "coverflow",
         grabCursor: true,
         centeredSlides: true,
@@ -29,10 +24,124 @@ $(function () {
             slideShadows: false,
         },
     });
+
+    const gradientScrollTrigger = ScrollTrigger.create({
+        trigger: swiperEl,
+        start: "bottom bottom",
+        endTrigger: footerEl,
+        end: "top bottom",
+        onEnter: () => {
+            bottomGradient.style.display = 'block';
+        },
+        onLeave: () => {
+            bottomGradient.style.display = 'none';
+        },
+        onEnterBack: () => {
+            bottomGradient.style.display = 'block';
+        },
+    });
+
+    // Якорь для скролла
+    const SLIDES_COUNT = 16;
+    let currentStep = -1;
+    let isManualScrolling = false;
+
+    const heights = textEls.map(el => el.getBoundingClientRect().height);
+    const totalHeight = heights.reduce((sum, h) => sum + h, 0);
+    const thresholds = [];
+
+    let accumulatedHeight = 0;
+    const total = heights.length;
+
+    const firstEnd = Math.floor(total / 3);
+    const secondEnd = Math.floor((total * 2) / 3);
+
+    for (let i = 0; i < total; i++) {
+        let point;
+
+        if (i < firstEnd) {
+            // 1️⃣ первая треть — top
+            point = accumulatedHeight;
+        } else if (i < secondEnd) {
+            // 2️⃣ средняя треть — center
+            point = accumulatedHeight + heights[i] / 2;
+        } else {
+            // 3️⃣ последняя треть — bottom
+            point = accumulatedHeight + heights[i];
+        }
+
+        thresholds.push(point / totalHeight);
+
+        accumulatedHeight += heights[i];
+    }
+
+    const mid = Math.floor(heights.length / 2);
+
+    for (let i = 0; i < heights.length; i++) {
+        let point;
+
+        if (i < mid) {
+            // первая половина — top элемента
+            point = accumulatedHeight;
+        } else {
+            // вторая половина — bottom элемента
+            point = accumulatedHeight + heights[i];
+        }
+
+        thresholds.push(point / totalHeight);
+
+        accumulatedHeight += heights[i];
+    }
+
+    const swiperScrollTrigger = ScrollTrigger.create({
+        trigger: swiperEl,
+        pin: true,
+        start: "top top",
+        pinSpacing: false,
+        endTrigger: footerEl,
+        end: "top bottom",
+        markers: true,
+        onUpdate: (event) => {
+            console.log(event.progress);
+            if (!isMobile) return;
+
+            if (
+                currentStep < thresholds.length - 1 &&
+                event.progress >= thresholds[currentStep + 1] &&
+                !isManualScrolling
+            ) {
+                currentStep++;
+                swiperHistory.slideTo(currentStep);
+            }
+
+            if (
+                currentStep > 0 &&
+                event.progress < thresholds[currentStep] &&
+                !isManualScrolling
+            ) {
+                currentStep--;
+                swiperHistory.slideTo(currentStep);
+            }
+
+            progressScale.style.width = `${event.progress * 100}%`;
+
+            // const step = Math.floor(event.progress * SLIDES_COUNT);
+
+            // if (step !== currentStep && step >= 0 && step < SLIDES_COUNT) {
+            //     currentStep = step;
+
+            //     if (currentStep !== swiperHistory.activeIndex && !isManualScrolling) {
+            //         swiperHistory.slideTo(currentStep);
+            //     }
+            // }
+        },
+    });
+
     const toggleText = (index, refreshDelay) => {
+        if (isMobile) return;
         const tesxtEls = document.querySelectorAll('.history-slider-text');
         tesxtEls.forEach(el => {
-            if (el.classList.contains(`text-index-${index}`)) {
+            if (Number(el.dataset.textIndex) === index) {
                 el.classList.add('active');
             } else {
                 el.classList.remove('active');
@@ -46,20 +155,25 @@ $(function () {
 
         setTimeout(() => {
             swiperScrollTrigger.refresh(false);
+            gradientScrollTrigger.refresh(false);
         }, refreshDelay);
     }
-    swiperHistory.on('slideChange', (swiper) => {
-        if (activeBullet) {
-            activeBullet.classList.remove('active');
-        }
-        activeBullet = swiperHistoryPagination.slides[swiper.activeIndex];;
-        activeBullet.classList.add('active');
+    const scrollToText = (targetIndex) => {
+        if (!isMobile) return;
 
+        const targetProgress = targetIndex / SLIDES_COUNT;
+        const scrollY = swiperScrollTrigger.start + targetProgress * (swiperScrollTrigger.end - swiperScrollTrigger.start);
 
-        toggleText(swiper.activeIndex, swiper.params.speed);
-    });
+        isManualScrolling = true;
+        gsap.to(window, { duration: 0.3, scrollTo: scrollY });
+        setTimeout(() => isManualScrolling = false, 300)
+    }
+
     swiperHistory.on('click', (swiper, event) => {
-        const { clientX, clientY } = event;
+        if (event.changedTouches && event.changedTouches.length > 1) return;
+
+        const clientX = event.clientX ?? event.changedTouches[0].clientX;
+        const clientY = event.clientY ?? event.changedTouches[0].clientY;
 
         const slides = swiper.slides;
         let targetIndex = null;
@@ -79,9 +193,10 @@ $(function () {
 
         if (targetIndex != null) {
             swiper.slideTo(targetIndex);
+
+            scrollToText(targetIndex);
         }
     });
-    swiperHistory.init();
 
     // Пагинация
     let swiperHistoryPagination = new Swiper(".swiper-history-pagination", {
@@ -91,13 +206,31 @@ $(function () {
     });
     let activeBullet = swiperHistoryPagination.slides[0];
     swiperHistoryPagination.on('click', (swiper) => {
+        swiperHistory.slideTo(swiper.clickedIndex);
+
+        scrollToText(swiper.clickedIndex);
+    });
+
+    swiperHistory.on('slideChange', (swiper) => {
         if (activeBullet) {
             activeBullet.classList.remove('active');
         }
-        activeBullet = swiper.clickedSlide;
+        activeBullet = swiperHistoryPagination.slides[swiper.activeIndex];;
         activeBullet.classList.add('active');
-        swiperHistory.slideTo(swiper.clickedIndex);
+
+        const slide = swiperHistoryPagination.slides[swiper.activeIndex];
+        const offset = slide.offsetLeft;
+        let translate = -offset;
+
+        const max = swiperHistoryPagination.maxTranslate();
+
+        translate = Math.max(translate, max);
+
+        swiperHistoryPagination.setTranslate(translate);
+
+        toggleText(swiper.activeIndex, swiper.params.speed);
     });
+    swiperHistory.init();
 
     /*END СЛАЙДЕР ИСТОРИИ*/
 })

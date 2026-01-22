@@ -3068,7 +3068,29 @@ body input[type="submit"]:hover {
 
 /*История компании*/
 .history-slider {
-    height: auto
+    height: auto;
+    position: relative;
+}
+.history-slider .top-gradient {
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(
+        to bottom,
+        #e9eaf3 0%,
+        rgba(233, 234, 243, 0) 100%
+    );
+}
+.history-slider .bottom-gradient {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(
+        to top,
+        #e9eaf3 0%,
+        rgba(233, 234, 243, 0) 100%
+    );
+    display: none;
 }
 
 .swiper-history-pagination-wrapper {
@@ -3096,10 +3118,21 @@ body input[type="submit"]:hover {
     color: #E4252D;
     opacity: 1;
 }
+.progress-bar-wrapper {
+    display: none;
+    height: 6px;
+    width: 100%;
+    background-color: #80808033;
+}
+.progress-bar-scale {
+    height: 6px;
+    width: 0;
+    background-color: #E4252D;
+}
 
 .swiper-history {
     height: auto;
-    padding: 30px 0 30px;
+    padding: 30px 0 0;
     background-color: #e9eaf3ff;
     width: 100%;
 }
@@ -3118,6 +3151,7 @@ body input[type="submit"]:hover {
     width: 700px;
     margin: 0 auto;
     display: none;
+    margin-bottom: 50px;
 }
 .history-slider-text.active {
     display: block;
@@ -3129,7 +3163,29 @@ body input[type="submit"]:hover {
 }
 .history-slider-text .slidet-text {
     font-size: 20px;
-    margin-bottom: 50px;
+}
+.history-slider-text:last-of-type {
+    margin-bottom: 0;
+}
+
+@media (max-width: 820px) {
+    .swiper-history .swiper-slide { width: 600px; }
+    .history-slider-text { width: 600px; }
+}
+@media (max-width: 768px) {
+    .swiper-history .swiper-slide { width: 500px; }
+    .history-slider-text { width: 500px; }
+}
+@media (max-width: 620px) {
+    .swiper-history .swiper-slide { width: 400px; }
+    .history-slider-text { width: 400px; }
+}
+@media (max-width: 520px) {
+    .swiper-history-pagination .pagination-bullet { border-bottom: none !important; }
+    .progress-bar-wrapper { display: block; }
+    .swiper-history .swiper-slide { width: 280px; }
+    .history-slider-text { display: block; }
+    .history-slider-text .slidet-text-title { font-size: 35px; }
 }
 /*END История компании*/
 
