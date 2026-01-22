@@ -14,6 +14,7 @@ $(function () {
 
     const isMobile = window.innerWidth <= 520;
 
+    // Свайперы для слайдов и для пагинации
     const swiperHistory = new Swiper(".swiper-history", {
         effect: "coverflow",
         grabCursor: true,
@@ -26,6 +27,11 @@ $(function () {
             modifier: 1,
             slideShadows: false,
         },
+    });
+    let swiperHistoryPagination = new Swiper(".swiper-history-pagination", {
+        slidesPerView: 'auto',
+        freeMode: true,
+        mousewheel: true,
     });
 
     // Якорь для градиента внизу
@@ -49,54 +55,16 @@ $(function () {
     let previousText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex - 1}']`);
     let currentText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex}']`);
     let nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
-    let isManualScroll = false;
-    const updateSliderState = () => {
-        if (nextText && swiperEl.getBoundingClientRect().bottom >= nextText.getBoundingClientRect().top) {
-            if (!isManualScroll) {
-                swiperHistory.slideTo(swiperHistory.activeIndex + 1);
-            }
-
-            previousText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex - 1}']`);
-            currentText = nextText;
-            nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
-        }
-
-        if (previousText && swiperEl.getBoundingClientRect().bottom <= previousText.getBoundingClientRect().bottom) {
-            if (!isManualScroll) {
-                swiperHistory.slideTo(swiperHistory.activeIndex - 1);
-            }
-
-            nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
-            currentText = previousText;
-            previousText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex - 1}']`);
-        }
-    }
-
-    // Перелистываем слайдер, когда тайтл его текста пересекает слайдер
-    const swiperScrollTrigger = ScrollTrigger.create({
-        trigger: swiperEl,
-        pin: true,
-        start: "top top",
-        pinSpacing: false,
-        endTrigger: isMobile ? textEls.at(-1) : footerEl,
-        end: isMobile ? `top bottom-=${scrollAreaHeight + 10}px` : "top bottom",
-        onUpdate: (event) => {
-            if (!isMobile) return;
-            progressScale.style.width = `${event.progress * 100}%`;
-
-            updateSliderState();
-        },
-    });
+    let activeBullet = swiperHistoryPagination.slides[0];
+    let scrollListenerActive = true;
 
     /**
      * Функции для переключения текста при смене слайда
      * Для десктопа и мобильных разное поведение
-     * - Десктоп - смета текстового блока
+     * - Десктоп - смена текстового блока
      * - Мобильные - скролл до нужного текстового блока
      */
-    const toggleText = (index, refreshDelay) => {
-        if (isMobile) return;
-
+    const toggleText = (index) => {
         const tesxtEls = document.querySelectorAll('.history-slider-text');
         tesxtEls.forEach(el => {
             if (Number(el.dataset.textIndex) === index) {
@@ -106,21 +74,12 @@ $(function () {
             }
         });
 
-        if (swiperScrollTrigger.isActive) {
-            const start = swiperScrollTrigger.start;
-            swiperScrollTrigger.scroll(start)
-        }
-
         gradientScrollTrigger.refresh();
         setTimeout(() => {
             swiperScrollTrigger.refresh();
-        }, refreshDelay);
+        }, swiperHistory.params.speed);
     }
     const scrollToText = (targetIndex) => {
-        swiperHistory.slideTo(targetIndex);
-
-        if (!isMobile) return;
-
         const targetTextEl = document.querySelector(`[data-text-index='${targetIndex}']`);
 
         let scrollLength = swiperEl.getBoundingClientRect().bottom - targetTextEl.getBoundingClientRect().top;
@@ -138,69 +97,126 @@ $(function () {
             scrollLength += 10;
         }
 
-        isManualScroll = true;
-        gsap.to(window, { duration: 0.3, scrollTo: scrollTo });
-        setTimeout(() => {
-            updateSliderState();
-            isManualScroll = false;
-        }, 300)
+        gsap.to(window, { duration: swiperHistory.params.speed / 1000, scrollTo: scrollTo }).then(() => scrollListenerActive = true);
     }
-
-    swiperHistory.on('click', (swiper, event) => {
-        if (event.changedTouches && event.changedTouches.length > 1) return;
-
-        const clientX = event.clientX ?? event.changedTouches[0].clientX;
-        const clientY = event.clientY ?? event.changedTouches[0].clientY;
-
-        const slides = swiper.slides;
-        let targetIndex = null;
-
-        slides.forEach((slide, index) => {
-            const rect = slide.getBoundingClientRect();
-
-            if (
-                clientX >= rect.left &&
-                clientX <= rect.right &&
-                clientY >= rect.top &&
-                clientY <= rect.bottom
-            ) {
-                targetIndex = index;
-            }
-        });
-
-        if (targetIndex != null) {
-            scrollToText(targetIndex);
+    const updateSliderState = (targetIndex, changeSlide, scrollText) => {
+        if (!isMobile) {
+            bottomGradient.style.display = 'none';
         }
-    });
 
-    // Пагинация
-    let swiperHistoryPagination = new Swiper(".swiper-history-pagination", {
-        slidesPerView: 'auto',
-        freeMode: true,
-        mousewheel: true,
-    });
-    let activeBullet = swiperHistoryPagination.slides[0];
-    swiperHistoryPagination.on('click', (swiper) => {
-        scrollToText(swiper.clickedIndex);
-    });
-    swiperHistory.on('slideChange', (swiper) => {
+        if (scrollText) {
+            scrollListenerActive = false;
+        }
+        console.log('update')
+
+        previousText = document.querySelector(`[data-text-index='${targetIndex - 1}']`);
+        currentText = document.querySelector(`[data-text-index='${targetIndex}']`);
+        nextText = document.querySelector(`[data-text-index='${targetIndex + 1}']`);
+
         if (activeBullet) {
             activeBullet.classList.remove('active');
         }
-        activeBullet = swiperHistoryPagination.slides[swiper.activeIndex];;
+        activeBullet = swiperHistoryPagination.slides[targetIndex];
         activeBullet.classList.add('active');
 
-        const slide = swiperHistoryPagination.slides[swiper.activeIndex];
+        const slide = swiperHistoryPagination.slides[targetIndex];
+        const maxTranslate = swiperHistoryPagination.maxTranslate();
+
         const offset = slide.offsetLeft;
         let translate = -offset;
 
-        const max = swiperHistoryPagination.maxTranslate();
-
-        translate = Math.max(translate, max);
+        translate = Math.max(translate, maxTranslate);
 
         swiperHistoryPagination.setTranslate(translate);
+        
+        if (changeSlide) {
+            swiperHistory.slideTo(targetIndex);
+        }
 
-        toggleText(swiper.activeIndex, swiper.params.speed);
+        if (scrollText) {
+            if (isMobile) {
+                scrollToText(targetIndex);
+            } else {
+                toggleText(targetIndex);
+            }
+        }
+        
+        // setTimeout(() => scrollListenerActive = true, swiperHistory.params.speed);
+    }
+
+    // Перелистываем слайдер, когда тайтл его текста пересекает слайдер
+    const swiperScrollTrigger = ScrollTrigger.create({
+        trigger: swiperEl,
+        pin: true,
+        start: "top top",
+        pinSpacing: false,
+        endTrigger: isMobile ? textEls.at(-1) : footerEl,
+        end: isMobile ? `top bottom-=${scrollAreaHeight + 10}px` : "top bottom",
+        onUpdate: (event) => {
+            if (!isMobile) return;
+
+            progressScale.style.width = `${event.progress * 100}%`;
+
+            if (!scrollListenerActive) return;
+
+            if (nextText && swiperEl.getBoundingClientRect().bottom >= nextText.getBoundingClientRect().top) {
+                const targetIndex = Number(nextText.dataset.textIndex);
+                updateSliderState(targetIndex, true, false);
+            }
+
+            if (previousText && swiperEl.getBoundingClientRect().bottom <= previousText.getBoundingClientRect().bottom) {
+                const targetIndex = Number(previousText.dataset.textIndex);
+                updateSliderState(targetIndex, true, false);
+            }
+        },
+    });
+
+    // Обработчики событий на пагинации
+    swiperHistoryPagination.on('click', (swiper) => {
+        updateSliderState(swiper.clickedIndex, true, true);
+    });
+
+    // Обработчики событий на слайдере
+    /**
+     * Определяем клик или драг по разнице начальной и конечной координат
+     * т.к. логика нужна разная. Можно добавить небольшую дельту, в рамках которой драг
+     * будет все еще считаться кликом\тапом.
+     * Отслеживание клика в отдельном слушателе нерационально,
+     * т.к. клик триггерит так же touchEnd
+     */
+    swiperHistory.on('touchEnd', (swiper, event) => {
+        if (event.changedTouches && event.changedTouches.length > 1) return;
+
+        const touchStart = swiper.touches.startX;
+        const touchEnd = swiper.touches.currentX;
+
+        if (touchStart === touchEnd) {
+            const clientX = event.clientX ?? event.changedTouches[0].clientX;
+            const clientY = event.clientY ?? event.changedTouches[0].clientY;
+
+            const slides = swiper.slides;
+            let targetIndex = null;
+
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+
+                if (
+                    clientX >= rect.left &&
+                    clientX <= rect.right &&
+                    clientY >= rect.top &&
+                    clientY <= rect.bottom
+                ) {
+                    targetIndex = index;
+                }
+            });
+            console.log(targetIndex)
+            if (targetIndex != null) {
+                updateSliderState(targetIndex, true, true);
+            }
+        } else {
+            console.log(swiper.activeIndex)
+            updateSliderState(swiper.activeIndex, false, true);
+        }
     });
     swiperHistory.init();
 
