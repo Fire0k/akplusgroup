@@ -10,7 +10,6 @@ $(function () {
 
     const isMobile = window.innerWidth <= 520;
 
-    // Слайдер
     const swiperHistory = new Swiper(".swiper-history", {
         effect: "coverflow",
         grabCursor: true,
@@ -60,13 +59,10 @@ $(function () {
         let point;
 
         if (i < firstEnd) {
-            // 1️⃣ первая треть — top
             point = accumulatedHeight;
         } else if (i < secondEnd) {
-            // 2️⃣ средняя треть — center
             point = accumulatedHeight + heights[i] / 2;
         } else {
-            // 3️⃣ последняя треть — bottom
             point = accumulatedHeight + heights[i];
         }
 
@@ -81,10 +77,8 @@ $(function () {
         let point;
 
         if (i < mid) {
-            // первая половина — top элемента
             point = accumulatedHeight;
         } else {
-            // вторая половина — bottom элемента
             point = accumulatedHeight + heights[i];
         }
 
@@ -123,16 +117,6 @@ $(function () {
             }
 
             progressScale.style.width = `${event.progress * 100}%`;
-
-            // const step = Math.floor(event.progress * SLIDES_COUNT);
-
-            // if (step !== currentStep && step >= 0 && step < SLIDES_COUNT) {
-            //     currentStep = step;
-
-            //     if (currentStep !== swiperHistory.activeIndex && !isManualScrolling) {
-            //         swiperHistory.slideTo(currentStep);
-            //     }
-            // }
         },
     });
 
