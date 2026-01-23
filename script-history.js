@@ -90,7 +90,8 @@ $(function () {
             scrollTo = window.scrollY - scrollLength;
 
             if (swiperEl.getBoundingClientRect().top > 0) {
-                scrollLength -= swiperEl.getBoundingClientRect().top;
+                console.log('asghaksg')
+                scrollTo += swiperEl.getBoundingClientRect().top;
             }
         } else {
             scrollTo = window.scrollY - scrollLength;
@@ -140,8 +141,6 @@ $(function () {
                 toggleText(targetIndex);
             }
         }
-        
-        // setTimeout(() => scrollListenerActive = true, swiperHistory.params.speed);
     }
 
     // Перелистываем слайдер, когда тайтл его текста пересекает слайдер
