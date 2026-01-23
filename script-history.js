@@ -57,6 +57,7 @@ $(function () {
     let nextText = document.querySelector(`[data-text-index='${swiperHistory.activeIndex + 1}']`);
     let activeBullet = swiperHistoryPagination.slides[0];
     let scrollListenerActive = true;
+    let inAnimating = false;
 
     /**
      * Функции для переключения текста при смене слайда
@@ -90,7 +91,6 @@ $(function () {
             scrollTo = window.scrollY - scrollLength;
 
             if (swiperEl.getBoundingClientRect().top > 0) {
-                console.log('asghaksg')
                 scrollTo += swiperEl.getBoundingClientRect().top;
             }
         } else {
@@ -101,6 +101,9 @@ $(function () {
         gsap.to(window, { duration: swiperHistory.params.speed / 1000, scrollTo: scrollTo }).then(() => scrollListenerActive = true);
     }
     const updateSliderState = (targetIndex, changeSlide, scrollText) => {
+        if (inAnimating) return;
+        inAnimating = true;
+
         if (!isMobile) {
             bottomGradient.style.display = 'none';
         }
@@ -108,7 +111,6 @@ $(function () {
         if (scrollText) {
             scrollListenerActive = false;
         }
-        console.log('update')
 
         previousText = document.querySelector(`[data-text-index='${targetIndex - 1}']`);
         currentText = document.querySelector(`[data-text-index='${targetIndex}']`);
@@ -141,6 +143,8 @@ $(function () {
                 toggleText(targetIndex);
             }
         }
+
+        inAnimating = false;
     }
 
     // Перелистываем слайдер, когда тайтл его текста пересекает слайдер
@@ -183,39 +187,34 @@ $(function () {
      * Отслеживание клика в отдельном слушателе нерационально,
      * т.к. клик триггерит так же touchEnd
      */
-    swiperHistory.on('touchEnd', (swiper, event) => {
+    swiperHistory.on('click', (swiper, event) => {
         if (event.changedTouches && event.changedTouches.length > 1) return;
 
-        const touchStart = swiper.touches.startX;
-        const touchEnd = swiper.touches.currentX;
+        const clientX = event.clientX ?? event.changedTouches[0].clientX;
+        const clientY = event.clientY ?? event.changedTouches[0].clientY;
 
-        if (touchStart === touchEnd) {
-            const clientX = event.clientX ?? event.changedTouches[0].clientX;
-            const clientY = event.clientY ?? event.changedTouches[0].clientY;
+        const slides = swiper.slides;
+        let targetIndex = null;
 
-            const slides = swiper.slides;
-            let targetIndex = null;
+        slides.forEach((slide, index) => {
+            const rect = slide.getBoundingClientRect();
 
-            slides.forEach((slide, index) => {
-                const rect = slide.getBoundingClientRect();
-
-                if (
-                    clientX >= rect.left &&
-                    clientX <= rect.right &&
-                    clientY >= rect.top &&
-                    clientY <= rect.bottom
-                ) {
-                    targetIndex = index;
-                }
-            });
-            console.log(targetIndex)
-            if (targetIndex != null) {
-                updateSliderState(targetIndex, true, true);
+            if (
+                clientX >= rect.left &&
+                clientX <= rect.right &&
+                clientY >= rect.top &&
+                clientY <= rect.bottom
+            ) {
+                targetIndex = index;
             }
-        } else {
-            console.log(swiper.activeIndex)
-            updateSliderState(swiper.activeIndex, false, true);
+        });
+        
+        if (targetIndex != null) {
+            updateSliderState(targetIndex, true, true);
         }
+    });
+    swiperHistory.on('slideChange', (swiper) => {
+        updateSliderState(swiper.activeIndex, false, true);
     });
     swiperHistory.init();
 
