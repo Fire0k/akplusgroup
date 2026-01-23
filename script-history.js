@@ -19,6 +19,7 @@ $(function () {
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: "auto",
+        allowTouchMove: !isMobile,
         coverflowEffect: {
             rotate: 50,
             stretch: 0,
@@ -131,7 +132,7 @@ $(function () {
             scrollTo = window.scrollY - scrollLength;
 
             if (swiperEl.getBoundingClientRect().top > 0) {
-                scrollLength -= swiperEl.getBoundingClientRect().top;
+                scrollTo += swiperEl.getBoundingClientRect().top;
             }
         } else {
             scrollTo = window.scrollY - scrollLength;
