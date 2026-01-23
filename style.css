@@ -3071,6 +3071,9 @@ body input[type="submit"]:hover {
     height: auto;
     position: relative;
 }
+.history-slider .pin-spacer{
+    z-index: 1 !important;
+}
 .history-slider .bottom-gradient {
     position: fixed;
     bottom: 0;
@@ -3160,6 +3163,20 @@ body input[type="submit"]:hover {
 .history-slider-text .slidet-text {
     font-size: 20px;
 }
+.history-slider-text .slidet-text .text-point {
+    position: relative;
+    padding-left: 20px;
+}
+.history-slider-text .slidet-text .text-point::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #E4252D;
+}
 
 @media (max-width: 820px) {
     .swiper-history .swiper-slide { width: 600px; }
@@ -3171,7 +3188,7 @@ body input[type="submit"]:hover {
 }
 @media (max-width: 620px) {
     .swiper-history .swiper-slide { width: 400px; }
-    .history-slider-text { width: 400px; }
+    .history-slider-text { width: 350px; }
 }
 @media (max-width: 520px) {
     .swiper-history-pagination .pagination-bullet { border-bottom: none !important; }

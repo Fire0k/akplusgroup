@@ -173,6 +173,7 @@ $(function () {
             }
         },
     });
+    ScrollTrigger.normalizeScroll(true);
 
     // Обработчики событий на пагинации
     swiperHistoryPagination.on('click', (swiper) => {
