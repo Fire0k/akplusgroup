@@ -2303,20 +2303,29 @@ body a.btn-base:hover {
 #js__one__click {
     margin-top: 0;
     position: relative;
+    min-height: 110vh;
+}
+#js__one__click .section-wrapper {
+    height: 110vh;
+    overflow-y: hidden;
+    position: relative;
 }
 /*При увеличении высоты анимация по скроллу станет плавнее, при уменьшении - быстрее*/
-#js__one__click .one__screen {
+#js__one__click .section-wrapper .scroll-area {
     height: 800vh;
 }
 /*Блок с анимируемым заголовком всегда сверху страницы и высотой в экран, пока идет скролл по его родителю с большей высотой*/
-#js__one__click .one__screen .one__screen__text {
-    height: 100vh;
+#js__one__click .one__screen__text {
+    height: 110vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
-#js__one__click .one__screen .one__screen__text h2 {
+#js__one__click .one__screen__text h2 {
     color: rgba(228, 37, 45, 1);
     font-size: 120px;
     font-weight: 500;
@@ -2343,7 +2352,7 @@ body a.btn-base:hover {
     opacity: 0;
     transition: opacity 1s ease;
     position: absolute;
-    bottom: 0;
+    top: 0;
     width: 100%;
     display: flex;
     align-items: center;
@@ -2440,8 +2449,6 @@ body a.btn-base:hover {
 /*фиксируем второй экран*/
 #js__one__click .two__screen.animate-show {
     opacity: 1;
-    position: fixed;
-    top: 0;
 }
 #js__one__click .two__screen.animate-show h2 {
     opacity: 1;
@@ -2471,7 +2478,7 @@ body a.btn-base:hover {
 #js__one__click .two__screen.show ul li {
     opacity: 1;
 }
-#js__one__click .one__screen.hide {
+#js__one__click .one__screen__text.hide {
     display: none;
 }
 #js__one__click .two__screen.show span {
@@ -2483,7 +2490,7 @@ body a.btn-base:hover {
     #js__one__click .two__screen h2 {
         font-size: 96px;
     }
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 98px;
     }
     #js__one__click .one__screen {
@@ -2503,7 +2510,7 @@ body a.btn-base:hover {
     }
 }
 @media (max-width: 1200px) {
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 68px;
     }
     #js__one__click .one__screen {
@@ -2514,13 +2521,13 @@ body a.btn-base:hover {
     #js__one__click .one__screen {
         height: 200vh;
     }
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 111px;
         transform-origin: 53% 28.5%;
     }
 }
 @media (max-width: 768px) {
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 104px;
     }
 }
@@ -2535,18 +2542,18 @@ body a.btn-base:hover {
     #js__one__click .two__screen span {
         font-size: 24px;
     }
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 83px;
         text-align: center;
     }
 }
 @media (max-width: 520px) {
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 69px;
     }
 }
 @media (max-width: 450px) {
-    #js__one__click .one__screen .one__screen__text h2 {
+    #js__one__click .one__screen__text h2 {
         font-size: 59px;
     }
 }

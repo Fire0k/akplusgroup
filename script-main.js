@@ -1,5 +1,7 @@
 /* Start:"a:4:{s:4:"full";s:51:"/local/templates/ak_plus/js/main.js?176652305110566";s:6:"source";s:35:"/local/templates/ak_plus/js/main.js";s:3:"min";s:0:"";s:3:"map";s:0:"";}"*/
 $(function () {
+    window.history.scrollRestoration = 'manual';
+
     function upadateValue() {
         $.ajax({
             url: "/local/ajax/getData.php",
@@ -111,10 +113,12 @@ $(function () {
 
     const body = document.querySelector("body");
     const containerOneClick = document.getElementById("js__one__click");
+    const animateContainer = containerOneClick.querySelector(".section-wrapper");
+    const scrollArea = animateContainer.querySelector('.scroll-area');
     const titleWrapper = containerOneClick.querySelector(".one__screen__text");
     const title = titleWrapper.querySelector("h2");
-    const firstScreen = containerOneClick.querySelector(".one__screen");
     const secondScreen = containerOneClick.querySelector(".two__screen");
+    const nextSection = document.querySelector(".slider_one");
 
     // Отображение финального экрана
     let secondScreenShowed = false;
@@ -143,42 +147,11 @@ $(function () {
      * startScalingPoint - прогресс, при котором должна начаться анимация скейла, можно регулировать
      */
     const endShowingPoint = 0.15;
-    const startScalingPoint = 0.35;
-    function animate(scrollProgress) {
-        if (secondScreenShowed || isMobile) return;
-
-        const animateProgress = mapRange(scrollProgress, 0, 0.7, 0, 1);
-
+    const startScalingPoint = 0.25;
+    function animate(animateProgress) {
         if (animateProgress <= 0) {
             title.style.opacity = 0;
             title.style.transform = `translateY(100%)`;
-
-            return;
-        }
-
-        if (animateProgress >= 1) {
-            title.style.opacity = 1;
-            title.style.transform = `scale(${maxScale})`;
-
-            if (!secondScreenShowed) {
-                secondScreenShowed = true;
-
-                body.classList.add("lock-scroll");
-
-                secondScreen.classList.add("animate-show");
-
-                setTimeout(() => {
-                    secondScreen.classList.remove("animate-show");
-                    secondScreen.classList.add("show");
-
-                    firstScreen.classList.add("hide");
-
-                    smoother.scrollTo(containerOneClick, false, "top top");
-                }, 1000);
-                setTimeout(() => {
-                    body.classList.remove("lock-scroll");
-                }, 4100);
-            }
 
             return;
         }
@@ -200,6 +173,28 @@ $(function () {
             );
             title.style.transform = `scale(${scale})`;
         }
+
+        if (animateProgress >= 1) {
+            secondScreenShowed = true;
+
+            secondScreen.classList.add("animate-show");
+
+            setTimeout(() => {
+                secondScreen.classList.remove("animate-show");
+                secondScreen.classList.add("show");
+
+                titleWrapper.classList.add("hide");
+
+                smoother.scrollTo(containerOneClick, false, "top top");
+            }, 1000);
+            setTimeout(() => {
+                animateContainer.style.display = 'none'
+                smoother.paused(false);
+                desktopAnimateContainer.kill();
+            }, 4100);
+
+            return;
+        }
     }
 
     /**
@@ -217,73 +212,83 @@ $(function () {
         smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
     });
     const desktopAnimate = ScrollTrigger.create({
-        trigger: titleWrapper,
-        pin: true,
-        start: "top top",
-        pinSpacing: false,
-        endTrigger: containerOneClick,
-        end: "bottom bottom",
-        onUpdate: (self) => {
-            animate(self.progress);
+        trigger: scrollArea,
+        start: "top top-=100px",
+        end: "bottom bottom+=100px",
+        onUpdate: (e) => {
+            if (e.progress === 0) {
+                smoother.paused(false);
+                animateContainer.style.overflowY = 'hidden';
+                smoother.scrollTo(containerOneClick, true, 'top top+=10px')
+            }
+
+            animate(e.progress);
         },
+        scroller: animateContainer,
         once: true,
-        fastScrollEnd: true,
     });
-    const mobileAnimate = gsap.to(title, {
-        scrollTrigger: {
-            trigger: titleWrapper,
-            start: "top top",
-            pinSpacing: false,
-            once: true,
-            pin: true,
-        },
-        keyframes: {
-            "0%": { opacity: 0, y: 0, yPercent: 100 },
-            "15%": { opacity: 1, y: 0, yPercent: 0, scale: 1 },
-            "25%": { opacity: 1, y: 0, yPercent: 0, scale: 1 },
-            "100%": { opacity: 1, y: 0, yPercent: 0, scale: 450 },
-        },
-        duration: 3,
-        onStart: () => {
+    const desktopAnimateContainer = ScrollTrigger.create({
+        trigger: containerOneClick,
+        start: "top top",
+        endTrigger: nextSection,
+        end: "top bottom",
+        onEnter: () => {
+            if (secondScreenShowed) return;
+
+            animateContainer.style.overflowY = 'auto'
             smoother.paused(true);
         },
-        onComplete: () => {
-            secondScreen.classList.add("animate-show");
+        onLeave: () => {
+            if (secondScreenShowed) return;
 
-            setTimeout(() => {
-                secondScreen.classList.remove("animate-show");
-                secondScreen.classList.add("show");
+            desktopAnimate.kill();
 
-                firstScreen.classList.add("hide");
+            secondScreen.classList.add("show");
+            titleWrapper.classList.add("hide");
+            animateContainer.style.display = 'none'
+            smoother.paused(false);
 
-                smoother.scrollTo(containerOneClick, false, "top top");
-            }, 1000);
-
-            setTimeout(() => {
-                smoother.paused(false);
-                secondScreenShowed = true;
-            }, 3100);
+            secondScreenShowed = true;
         },
     });
 
     if (isMobile) {
         desktopAnimate.kill();
+        desktopAnimateContainer.kill()
     } else {
-        mobileAnimate.kill();
+        // mobileAnimate.kill();
     }
 
     /**
      * Обновляем скролл-тригеры при изменениях размера документа
      */
     const resizeObserver = new ResizeObserver(() => {
-        if (mobileAnimate?.scrollTrigger) {
-            mobileAnimate.scrollTrigger.refresh();
-        }
         if (desktopAnimate) {
             desktopAnimate.refresh();
         }
+        if (desktopAnimateContainer) {
+            desktopAnimateContainer.refresh();
+        }
     });
     resizeObserver.observe(document.body);
+
+    /**
+     * Перехватываем клики по анкорным ссылкам, чтобы они не ломали анимацию
+     * ВАЖНО: перехват убирает добавление анкора в url,
+     * если это нежелательно - можно попробовать доработать
+     */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const id = e.target.getAttribute('href').substring(1);
+
+            const block = document.getElementById(id);
+            if (block) {
+                e.preventDefault();
+                smoother.scrollTo(block)
+            }
+        });
+    });
+
     /*END ПУТЕШЕСТВИЕ В 1 КЛИК АНИМАЦИЯ*/
 
     /*Слайдер*/
