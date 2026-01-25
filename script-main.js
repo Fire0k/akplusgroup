@@ -1,6 +1,6 @@
 /* Start:"a:4:{s:4:"full";s:51:"/local/templates/ak_plus/js/main.js?176652305110566";s:6:"source";s:35:"/local/templates/ak_plus/js/main.js";s:3:"min";s:0:"";s:3:"map";s:0:"";}"*/
 $(function () {
-    window.history.scrollRestoration = 'manual';
+    window.history.scrollRestoration = 'auto';
 
     function upadateValue() {
         $.ajax({
