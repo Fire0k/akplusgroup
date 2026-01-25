@@ -372,5 +372,17 @@ $(function () {
                 .remove();
         });
     }
+
+
+    /**
+     * Библиотека для модалок не дружит со ScrollSmoother
+     * Небольшой костыль для временного отключения смузера при открытии модалки
+     * и включения при закрытии
+     */
+    const modalButtons = document.querySelectorAll('[data-hystmodal="#callback"]');
+    modalButtons.forEach(button => button.onclick = () => smoother.paused(true));
+
+    const modalCloseButton = document.querySelector('[data-hystclose]');
+    modalCloseButton.onclick = () => setTimeout(() => smoother.paused(false), 10);
 });
 /* End */ /* /local/templates/ak_plus/js/main.js?176652305110566*/

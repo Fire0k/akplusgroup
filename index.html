@@ -1044,107 +1044,106 @@
                             >
                         </div>
                     </div>
-
-                    <div class="hystmodal" id="callback" aria-hidden="true">
-                        <div class="hystmodal__wrap">
-                            <div
-                                class="hystmodal__window"
-                                role="dialog"
-                                aria-modal="true"
-                            >
-                                <button data-hystclose class="hystmodal__close">
-                                    Закрыть
-                                </button>
-                                <form
-                                    id="callback__form"
-                                    method="post"
-                                    class="callback__form"
+                </footer>
+            </div>
+        </div>
+        <div class="hystmodal" id="callback" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div
+                    class="hystmodal__window"
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <button data-hystclose class="hystmodal__close" id="hystmodalClose">
+                        Закрыть
+                    </button>
+                    <form
+                        id="callback__form"
+                        method="post"
+                        class="callback__form"
+                    >
+                        <input
+                            type="hidden"
+                            name="IP"
+                            value="185.165.216.71"
+                        />
+                        <div class="title__block">
+                            Назначить встречу
+                        </div>
+                        <div class="name__block">
+                            <input
+                                type="text"
+                                required
+                                name="name"
+                                id="name"
+                                placeholder="Напишите свое имя"
+                            />
+                        </div>
+                        <div class="name__block">
+                            <input
+                                type="text"
+                                required
+                                name="company"
+                                id="company"
+                                placeholder="Компания"
+                            />
+                        </div>
+                        <div class="name__block">
+                            <input
+                                type="email"
+                                required
+                                name="email"
+                                id="email"
+                                placeholder="Корпоративный e-mail"
+                            />
+                        </div>
+                        <div class="phone__block">
+                            <input
+                                type="tel"
+                                required
+                                name="phone"
+                                id="phone"
+                                autocomplete="off"
+                                placeholder="Телефон"
+                            />
+                        </div>
+                        <div class="flex__bottom__footer">
+                            <input
+                                class="form-checkbox__input"
+                                type="checkbox"
+                                id="licenses"
+                                checked="checked"
+                                name="licenses_popup"
+                                required=""
+                                aria-required="true"
+                            />
+                            <label for="licenses"></label>
+                            <div for="licenses">
+                                <span
+                                    >Нажимая на кнопку, вы даете
+                                    согласие на обработку
+                                    персональных данных и
+                                    соглашаетесь c
+                                    <a
+                                        href="/politika-konfidentsialnosti/"
+                                        target="_blank"
+                                        >политикой
+                                        конфиденциальности</a
+                                    ></span
                                 >
-                                    <input
-                                        type="hidden"
-                                        name="IP"
-                                        value="185.165.216.71"
-                                    />
-                                    <div class="title__block">
-                                        Назначить встречу
-                                    </div>
-                                    <div class="name__block">
-                                        <input
-                                            type="text"
-                                            required
-                                            name="name"
-                                            id="name"
-                                            placeholder="Напишите свое имя"
-                                        />
-                                    </div>
-                                    <div class="name__block">
-                                        <input
-                                            type="text"
-                                            required
-                                            name="company"
-                                            id="company"
-                                            placeholder="Компания"
-                                        />
-                                    </div>
-                                    <div class="name__block">
-                                        <input
-                                            type="email"
-                                            required
-                                            name="email"
-                                            id="email"
-                                            placeholder="Корпоративный e-mail"
-                                        />
-                                    </div>
-                                    <div class="phone__block">
-                                        <input
-                                            type="tel"
-                                            required
-                                            name="phone"
-                                            id="phone"
-                                            autocomplete="off"
-                                            placeholder="Телефон"
-                                        />
-                                    </div>
-                                    <div class="flex__bottom__footer">
-                                        <input
-                                            class="form-checkbox__input"
-                                            type="checkbox"
-                                            id="licenses"
-                                            checked="checked"
-                                            name="licenses_popup"
-                                            required=""
-                                            aria-required="true"
-                                        />
-                                        <label for="licenses"></label>
-                                        <div for="licenses">
-                                            <span
-                                                >Нажимая на кнопку, вы даете
-                                                согласие на обработку
-                                                персональных данных и
-                                                соглашаетесь c
-                                                <a
-                                                    href="/politika-konfidentsialnosti/"
-                                                    target="_blank"
-                                                    >политикой
-                                                    конфиденциальности</a
-                                                ></span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="send__block btn-base">
-                                        <input
-                                            type="submit"
-                                            value="Назначить"
-                                        />
-                                    </div>
-                                    <div class="success-message">
-                                        Ваша заявка отправлена
-                                    </div>
-                                </form>
                             </div>
                         </div>
-                    </div>
-                </footer>
+                        <div class="send__block btn-base">
+                            <input
+                                type="submit"
+                                value="Назначить"
+                            />
+                        </div>
+                        <div class="success-message">
+                            Ваша заявка отправлена
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
