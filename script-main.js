@@ -206,7 +206,7 @@ $(function () {
      * because that typically feels odd to users when it disconnects from their finger's drag position,
      * but you can force smoothing on touch devices too by setting smoothTouch: true (same as smooth value) or specify an amount like smoothTouch: 0.1 (in seconds).
      */
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    ScrollTrigger.normalizeScroll(true);
     const smoother = ScrollSmoother.create({
         smooth: 1, //
         smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
@@ -258,7 +258,7 @@ $(function () {
             end: "bottom bottom",
             onLeave: () => {
                 if (secondScreenShowed) return;
-                
+
                 secondScreen.classList.add("show");
 
                 titleWrapper.classList.add("hide");
