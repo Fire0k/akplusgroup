@@ -2309,6 +2309,11 @@ body a.btn-base:hover {
     height: 110vh;
     overflow-y: hidden;
     position: relative;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.js__one__click .section-wrapper::-webkit-scrollbar {
+    display: none;
 }
 /*При увеличении высоты анимация по скроллу станет плавнее, при уменьшении - быстрее*/
 #js__one__click .section-wrapper .scroll-area {
@@ -2518,12 +2523,13 @@ body a.btn-base:hover {
     }
 }
 @media (max-width: 820px) {
-    #js__one__click .one__screen {
-        height: 200vh;
+    #js__one__click .section-wrapper {
+        display: none;
     }
     #js__one__click .one__screen__text h2 {
         font-size: 111px;
         transform-origin: 53% 28.5%;
+        padding: 0 15px;
     }
 }
 @media (max-width: 768px) {

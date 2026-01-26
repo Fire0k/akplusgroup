@@ -251,18 +251,70 @@ $(function () {
             secondScreenShowed = true;
         },
     });
+    const mobileAnimate = gsap.to(title, {
+        scrollTrigger: {
+            trigger: containerOneClick,
+            start: "top top",
+            end: "bottom bottom",
+            onLeave: () => {
+                if (secondScreenShowed) return;
+                
+                secondScreen.classList.add("show");
+
+                titleWrapper.classList.add("hide");
+
+                smoother.paused(false);
+                secondScreenShowed = true;
+            },
+        },
+        keyframes: {
+            "0%": { opacity: 0, y: 0, yPercent: 100 },
+            "15%": { opacity: 1, y: 0, yPercent: 0, scale: 1 },
+            "25%": { opacity: 1, y: 0, yPercent: 0, scale: 1 },
+            "100%": { opacity: 1, y: 0, yPercent: 0, scale: 450 },
+        },
+        duration: 3,
+        force3D: false,
+        onStart: () => {
+            if (secondScreenShowed) return;
+
+            smoother.paused(true);
+        },
+        onComplete: () => {
+            if (secondScreenShowed) return;
+
+            secondScreen.classList.add("animate-show");
+
+            setTimeout(() => {
+                secondScreen.classList.remove("animate-show");
+                secondScreen.classList.add("show");
+
+                titleWrapper.classList.add("hide");
+
+                smoother.scrollTo(containerOneClick, false, "top top");
+            }, 1000);
+
+            setTimeout(() => {
+                smoother.paused(false);
+                secondScreenShowed = true;
+            }, 3100);
+        },
+    });
 
     if (isMobile) {
         desktopAnimate.kill();
         desktopAnimateContainer.kill()
     } else {
-        // mobileAnimate.kill();
+        mobileAnimate.kill();
     }
 
     /**
      * Обновляем скролл-тригеры при изменениях размера документа
      */
     const resizeObserver = new ResizeObserver(() => {
+        if (mobileAnimate?.scrollTrigger) {
+            mobileAnimate.scrollTrigger.refresh();
+        }
         if (desktopAnimate) {
             desktopAnimate.refresh();
         }
@@ -388,6 +440,6 @@ $(function () {
     modalButtons.forEach(button => button.onclick = () => smoother.paused(true));
 
     const modalCloseButton = document.querySelector('[data-hystclose]');
-    modalCloseButton.onclick = () => setTimeout(() => smoother.paused(false), 10);
+    modalCloseButton.onclick = () => setTimeout(() => smoother.paused(false), 100);
 });
 /* End */ /* /local/templates/ak_plus/js/main.js?176652305110566*/
